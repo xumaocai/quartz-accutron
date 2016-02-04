@@ -30,8 +30,20 @@ public class TaskServer {
         log.info("   service start...");
         log.info("======================");
 
+//        String a = "a";
+//        String b = a + "b";
+//        String c = "ab";
+//        String d = new String("ab");
+//        String e = getA() + "b";
+//        System.out.println(b.toString() == "ab");
+//        System.out.println( "ab"== e);
+
+
+
 
     }
+
+//    private static String getA(){ return "a";}
 }
 
 
