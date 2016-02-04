@@ -20,7 +20,7 @@ public class ScheduleJobServiceImpl implements ScheduleJobService {
 
     @Override
     public void initScheduleJob() {
-        log.info("======init======");
+        log.info("======init Schedule Job======");
 
         try {
             SkeletonExample();
@@ -32,6 +32,9 @@ public class ScheduleJobServiceImpl implements ScheduleJobService {
     public static void SkeletonExample() throws SchedulerException {
 
         // Grab the Scheduler instance from the Factory
-        log.info("===start===");
+        Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
+
+        scheduler.start();
+        log.info("=== start Skeleton Example ===");
     }
 }

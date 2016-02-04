@@ -1,30 +1,56 @@
 package com.vastiny.javaweb.quartz.mvcweb.entity;
 
+import java.util.Date;
+
 /**
- * @author yangzhi
- * @since 2016/1/22
+ * Created by liyd on 12/19/14.
  */
 public class ScheduleJob {
 
-    /** 任务id */
-    private String jobId;
-    /** 任务名称 */
-    private String jobName;
-    /** 任务分组 */
-    private String jobGroup;
-    /** 任务状态 0禁用 1启用 2删除*/
-    private String jobStatus;
-    /** 任务运行时间表达式 */
-    private String cronExpression;
-    /** 任务描述 */
-    private String desc;
+    private static final long  serialVersionUID = -4216107640768329946L;
 
-    public String getJobId() {
-        return jobId;
+    /** 任务调度的参数key */
+    public static final String JOB_PARAM_KEY    = "jobParam";
+
+    /** 任务id */
+    private Long             scheduleJobId;
+
+    /** 任务名称 */
+    private String             jobName;
+
+    /** 任务别名 */
+    private String             aliasName;
+
+    /** 任务分组 */
+    private String             jobGroup;
+
+    /** 触发器 */
+    private String             jobTrigger;
+
+    /** 任务状态 */
+    private String             status;
+
+    /** 任务运行时间表达式 */
+    private String             cronExpression;
+
+    /** 是否异步 */
+    private Boolean            isSync;
+
+    /** 任务描述 */
+    private String             description;
+
+    /** 创建时间 */
+    private Date               gmtCreate;
+
+    /** 修改时间 */
+    private Date               gmtModify;
+
+    public Long getScheduleJobId() {
+        return scheduleJobId;
     }
 
-    public void setJobId(String jobId) {
-        this.jobId = jobId;
+    public void setScheduleJobId(Long scheduleJobId) {
+        this.scheduleJobId = scheduleJobId;
     }
 
     public String getJobName() {
@@ -35,6 +61,14 @@ public class ScheduleJob {
         this.jobName = jobName;
     }
 
+    public String getAliasName() {
+        return aliasName;
+    }
+
+    public void setAliasName(String aliasName) {
+        this.aliasName = aliasName;
+    }
+
     public String getJobGroup() {
         return jobGroup;
     }
@@ -43,12 +77,20 @@ public class ScheduleJob {
         this.jobGroup = jobGroup;
     }
 
-    public String getJobStatus() {
-        return jobStatus;
+    public String getJobTrigger() {
+        return jobTrigger;
     }
 
-    public void setJobStatus(String jobStatus) {
-        this.jobStatus = jobStatus;
+    public void setJobTrigger(String jobTrigger) {
+        this.jobTrigger = jobTrigger;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getCronExpression() {
@@ -59,11 +101,35 @@ public class ScheduleJob {
         this.cronExpression = cronExpression;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public Date getGmtModify() {
+        return gmtModify;
+    }
+
+    public void setGmtModify(Date gmtModify) {
+        this.gmtModify = gmtModify;
+    }
+
+    public Boolean getIsSync() {
+        return isSync;
+    }
+
+    public void setIsSync(Boolean isSync) {
+        this.isSync = isSync;
     }
 }

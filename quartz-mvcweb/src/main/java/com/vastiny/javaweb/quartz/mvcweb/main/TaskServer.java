@@ -24,9 +24,10 @@ public class TaskServer {
         // baseTaskServer.serve();
 
         // #2 启动 quartz 的第二种方法，使用 postConstruct 注解，在 BaseTaskInit 中
+        // 但是注意的是，如果使用 spring-web， 需要在 WEB-INF 中添加 quartz Factory 对应的启动类
 
         log.info("======================");
-        log.info("service start...");
+        log.info("   service start...");
         log.info("======================");
 
 

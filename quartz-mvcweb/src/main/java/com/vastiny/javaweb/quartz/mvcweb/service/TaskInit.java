@@ -21,7 +21,7 @@ public class TaskInit {
      */
     @PostConstruct
     public void init() {
-        System.out.println("hahaha");
+        System.out.println("in TaskInit");
         scheduleJobService.initScheduleJob();
     }
 }
