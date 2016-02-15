@@ -10,7 +10,7 @@ public class ScheduleJob {
     private static final long  serialVersionUID = -4216107640768329946L;
 
     /** 任务调度的参数key */
-    public static final String JOB_PARAM_KEY    = "jobParam";
+    public static final String JOB_PARAM_KEY    = "scheduleJob";
 
     /** 任务id */
     private Long             scheduleJobId;
