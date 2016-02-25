@@ -1,4 +1,4 @@
-package com.vastiny.javaweb.quartz.mvcweb.common;
+package com.vastiny.javaweb.quartz.mvcweb.common.constant;
 
 /**
  * @author yangzhi

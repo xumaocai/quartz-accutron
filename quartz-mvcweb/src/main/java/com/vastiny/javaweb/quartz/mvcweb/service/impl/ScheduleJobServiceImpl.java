@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author yangzhi
  * @since 2016/1/22
@@ -71,6 +73,11 @@ public class ScheduleJobServiceImpl implements ScheduleJobService {
     @Override
     public boolean update(Long scheduleJobId, ScheduleJob scheduleJob) {
         return false;
+    }
+
+    @Override
+    public List<ScheduleJob> selectScheduleJobs() {
+        return null;
     }
 
 }
