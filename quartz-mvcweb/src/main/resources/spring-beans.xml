@@ -5,17 +5,26 @@
 
     <!--下面是 本模块的 dao 层配置-->
     <!-- MyBatis配置 -->
-    <!--<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
-        <!--<property name="dataSource" ref="dataSource" />-->
-        <!--&lt;!&ndash; 自动扫描entity目录, 省掉Configuration.xml里的手工配置 &ndash;&gt;-->
-        <!--<property name="typeAliasesPackage" value="com.vastiny.javaweb.quartz.mvcweb.entity" />-->
-        <!--&lt;!&ndash; 显式指定Mapper文件位置 &ndash;&gt;-->
-        <!--<property name="mapperLocations" value="classpath*:mapper/*Mapper.xml" />-->
-    <!--</bean>-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
+        <property name="typeAliasesPackage" value="com.vastiny.javaweb.quartz.mvcweb.entity" />
+        <!-- 显式指定Mapper文件位置 -->
+        <property name="mapperLocations" value="classpath*:mapper/*Mapper.xml" />
+    </bean>
 
-    <!--<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">-->
-        <!--<constructor-arg index="0" ref="sqlSessionFactory"/>-->
-    <!--</bean>-->
+    <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.vastiny.javaweb.quartz.mvcweb.mapper"/>
+        <property name="markerInterface" value="com.vastiny.javaweb.quartz.mvcweb.mapper.base.BaseMapper"/>
+        <property name="properties">
+            <value>
+                mappers=tk.mybatis.mapper.common.Mapper
+            </value>
+        </property>
+    </bean>
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
 
     <!-- 数据源配置, 使用Tomcat JDBC连接池 -->
     <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">

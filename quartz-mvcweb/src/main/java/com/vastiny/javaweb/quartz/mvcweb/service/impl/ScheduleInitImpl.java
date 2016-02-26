@@ -1,11 +1,19 @@
 package com.vastiny.javaweb.quartz.mvcweb.service.impl;
 
+import com.vastiny.javaweb.quartz.mvcweb.common.json.GsonUtil;
+import com.vastiny.javaweb.quartz.mvcweb.entity.ScheduleJob;
 import com.vastiny.javaweb.quartz.mvcweb.service.ScheduleInit;
 import com.vastiny.javaweb.quartz.mvcweb.service.ScheduleJobService;
+import com.vastiny.javaweb.quartz.mvcweb.utils.ScheduleUtils;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 
 /**
  * @author yangzhi
@@ -15,13 +23,38 @@ import javax.annotation.PostConstruct;
 public class ScheduleInitImpl implements ScheduleInit {
 
     @Autowired
+    private Scheduler scheduler;
+
+    @Autowired
     ScheduleJobService scheduleJobService;
 
+    protected final static Logger LOG = LoggerFactory.getLogger(ScheduleJobServiceImpl.class);
+
     /**
-     * 任务初始化
+     * 初始化任务， 使用 PostConstruct 自启动
      */
+    @PostConstruct
     public void init() {
-        System.out.println("in TaskInit");
-        scheduleJobService.initScheduleJob();
+
+        // #1 来自数据库的任务
+        List<ScheduleJob> scheduleJobList = scheduleJobService.getAll();
+        for (ScheduleJob scheduleJob : scheduleJobList) {
+            ScheduleUtils.createScheduleJob(scheduler, scheduleJob);
+        }
+
+        LOG.info("==db jobs==");
+        LOG.info(GsonUtil.toJson(scheduleJobList));
+
+        // #2 来自jobs.xml 的定时任务
+
+
+        try {
+            scheduler.start();
+            System.out.println("schedule is started...");
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+
+
     }
 }

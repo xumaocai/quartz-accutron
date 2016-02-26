@@ -13,18 +13,8 @@ import java.util.List;
 @Service
 public interface ScheduleJobService {
 
-    /**
-     * 初始化任务
-     */
-    public void initScheduleJob();
+    public List<ScheduleJob> getAll ();
 
-    public Long insert(ScheduleJob scheduleJob);
+    public List<ScheduleJob> getExecutingJobList();
 
-    public boolean delete(Long scheduleJobId);
-
-    public ScheduleJob get(Long scheduleJobId);
-
-    public boolean update(Long scheduleJobId, ScheduleJob scheduleJob);
-
-    List<ScheduleJob> selectScheduleJobs();
 }

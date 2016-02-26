@@ -1,14 +1,16 @@
 package com.vastiny.javaweb.quartz.mvcweb.service.impl;
 
 import com.vastiny.javaweb.quartz.mvcweb.entity.ScheduleJob;
+import com.vastiny.javaweb.quartz.mvcweb.mapper.ScheduleJobMapper;
+import com.vastiny.javaweb.quartz.mvcweb.service.base.BaseService;
 import com.vastiny.javaweb.quartz.mvcweb.service.ScheduleJobService;
-import com.vastiny.javaweb.quartz.mvcweb.utils.ScheduleUtils;
 import org.quartz.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,67 +19,49 @@ import java.util.List;
  */
 
 @Service
-public class ScheduleJobServiceImpl implements ScheduleJobService {
+public class ScheduleJobServiceImpl extends BaseService<ScheduleJob> implements ScheduleJobService {
+
+    protected final static Logger LOG = LoggerFactory.getLogger(ScheduleJobServiceImpl.class);
 
     @Autowired
     private Scheduler scheduler;
 
-    protected final static Logger LOG = LoggerFactory.getLogger(ScheduleJobServiceImpl.class);
+    @SuppressWarnings("SpringJavaAutowiringInspection")
+    @Autowired
+    private ScheduleJobMapper scheduleJobMapper;
+
+    public List<ScheduleJob> getAll () {
+        return this.findAll();
+    }
 
     @Override
-    public void initScheduleJob() {
-        LOG.info("======init Schedule Job======");
-
-        for (int i = 0; i < 5; i++) {
-
-            ScheduleJob job = new ScheduleJob();
-            job.setScheduleJobId((long) (10001 + i));
-            job.setJobName("data_import" + i);
-            job.setJobGroup("dataWork");
-            job.setStatus("1");
-            job.setCronExpression("0/5 * * * * ?");
-            job.setDescription("数据导入任务");
-
-
-            ScheduleUtils.createScheduleJob(scheduler, job);
-        }
-
+    public List<ScheduleJob> getExecutingJobList() {
         try {
-            scheduler.start();
+            List<JobExecutionContext> executingJobs = scheduler.getCurrentlyExecutingJobs();
+            List<ScheduleJob> jobList = new ArrayList<ScheduleJob>(executingJobs.size());
+            for (JobExecutionContext executingJob : executingJobs) {
+                ScheduleJob job = new ScheduleJob();
+                JobDetail jobDetail = executingJob.getJobDetail();
+                JobKey jobKey = jobDetail.getKey();
+                Trigger trigger = executingJob.getTrigger();
+                job.setJobName(jobKey.getName());
+                job.setJobGroup(jobKey.getGroup());
+                job.setJobTrigger(trigger.getKey().getName());
+                Trigger.TriggerState triggerState = scheduler.getTriggerState(trigger.getKey());
+                job.setStatus(triggerState.name());
+                if (trigger instanceof CronTrigger) {
+                    CronTrigger cronTrigger = (CronTrigger) trigger;
+                    String cronExpression = cronTrigger.getCronExpression();
+                    job.setCronExpression(cronExpression);
+                }
+                jobList.add(job);
+            }
+            return jobList;
         } catch (SchedulerException e) {
-            e.printStackTrace();
+            //演示用，就不处理了
+            return null;
         }
 
-        // #1 来自数据库的任务
-
-
-        // #2 来自jobs.xml 的定时任务
-
-    }
-
-    @Override
-    public Long insert(ScheduleJob scheduleJob) {
-        return null;
-    }
-
-    @Override
-    public boolean delete(Long scheduleJobId) {
-        return false;
-    }
-
-    @Override
-    public ScheduleJob get(Long scheduleJobId) {
-        return null;
-    }
-
-    @Override
-    public boolean update(Long scheduleJobId, ScheduleJob scheduleJob) {
-        return false;
-    }
-
-    @Override
-    public List<ScheduleJob> selectScheduleJobs() {
-        return null;
     }
 
 }

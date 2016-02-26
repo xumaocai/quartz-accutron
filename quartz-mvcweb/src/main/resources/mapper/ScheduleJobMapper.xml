@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vastiny.javaweb.quartz.mvcweb.mapper.ScheduleJobMapper">
+
+    <resultMap id="ScheduleJobResultMap" type="com.vastiny.javaweb.quartz.mvcweb.entity.ScheduleJob">
+
+        <result column="schedule_job_id" property="scheduleJobId" jdbcType="INTEGER"/>
+        <result column="job_name" property="jobName" jdbcType="VARCHAR"/>
+        <result column="alias_name" property="aliasName" jdbcType="VARCHAR"/>
+        <result column="job_group" property="jobGroup" jdbcType="VARCHAR"/>
+        <result column="job_trigger" property="jobTrigger" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="cron_expression" property="cronExpression" jdbcType="VARCHAR"/>
+        <result column="is_sync" property="isSync" jdbcType="INTEGER"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP"/>
+        <result column="gmt_modify" property="gmtModify" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+
+    <!--&gt; 大于的意思-->
+    <!--&lt; 小于的意思-->
+    <select id="selectScheduleJobs" resultMap="ScheduleJobResultMap">
+        SELECT
+        *
+        FROM
+        schedule_job sj
+        WHERE
+        NOT sj.status = -1
+        ;
+
+
+    </select>
+
+</mapper>

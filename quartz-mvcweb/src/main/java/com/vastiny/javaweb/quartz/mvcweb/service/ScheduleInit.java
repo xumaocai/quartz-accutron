@@ -14,5 +14,8 @@ import javax.annotation.PostConstruct;
 @Service
 public interface ScheduleInit {
 
+    /**
+     * 初始化定时任务，从数据库中获取任务数据
+     */
     public void init();
 }

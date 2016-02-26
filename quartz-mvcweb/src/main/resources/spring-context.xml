@@ -10,8 +10,8 @@
        http://www.springframework.org/schema/aop/spring-aop.xsd"
 >
 
-    <import resource="spring-beans.xml" />
     <import resource="spring-context-profile.xml" />
+    <import resource="spring-beans.xml" />
     <import resource="spring-quartz.xml" />
 
     <!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired的属性被注入 -->
