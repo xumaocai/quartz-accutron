@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,6 +38,7 @@ public class ScheduleInitImpl implements ScheduleInit {
     public void init() {
 
         // #1 来自数据库的任务
+        /*
         List<ScheduleJob> scheduleJobList = scheduleJobService.getAll();
         for (ScheduleJob scheduleJob : scheduleJobList) {
             ScheduleUtils.createScheduleJob(scheduler, scheduleJob);
@@ -44,6 +46,20 @@ public class ScheduleInitImpl implements ScheduleInit {
 
         LOG.info("==db jobs==");
         LOG.info(GsonUtil.toJson(scheduleJobList));
+        */
+
+        ScheduleJob scheduleJob = new ScheduleJob();
+        scheduleJob.setScheduleJobId(12345L);
+        scheduleJob.setJobName("jobName1");
+        scheduleJob.setJobGroup("jobGroup1");
+        scheduleJob.setAliasName("haha");
+        scheduleJob.setCronExpression("0/5 * * * * ?");
+        scheduleJob.setDescription("hahaha");
+        scheduleJob.setIsSync(false);
+        scheduleJob.setStatus("1");
+
+        ScheduleUtils.createScheduleJob(scheduler, scheduleJob);
+
 
         // #2 来自jobs.xml 的定时任务
 

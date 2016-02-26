@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
  * @since 2016/1/22
  */
 
-public class DataConversionTask implements Job {
+public class DataConversionTask {
 
     /** 日志对象 */
     private static final Logger LOG = LoggerFactory.getLogger(DataConversionTask.class);
