@@ -1,9 +1,9 @@
-package com.vastiny.javaweb.quartz.mvcweb.service.impl;
+package com.vastiny.javaweb.quartz.mvcweb.event;
 
 import com.vastiny.javaweb.quartz.mvcweb.common.json.GsonUtil;
 import com.vastiny.javaweb.quartz.mvcweb.entity.ScheduleJob;
-import com.vastiny.javaweb.quartz.mvcweb.service.ScheduleInit;
 import com.vastiny.javaweb.quartz.mvcweb.service.ScheduleJobService;
+import com.vastiny.javaweb.quartz.mvcweb.service.impl.ScheduleJobServiceImpl;
 import com.vastiny.javaweb.quartz.mvcweb.utils.ScheduleUtils;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
@@ -15,12 +15,28 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.util.List;
 
+
+// #1 启用 quartz 的方法，同时启动 thrift 也可以
+// BaseTaskServer baseTaskServer = (BaseTaskServer)context.getBean("baseTaskServer");
+// baseTaskServer.serve();
+
+// #2 启动 quartz 的第二种方法，使用 postConstruct 注解，在 BaseTaskInit 中
+// 但是注意的是，如果使用 spring-web， 需要在 WEB-INF 中添加 quartz Factory 对应的启动类
+
+//        String a = "a";
+//        String b = a + "b";
+//        String c = "ab";
+//        String d = new String("ab");
+//        String e = getA() + "b";
+//        System.out.println(b.toString() == "ab");
+//        System.out.println( "ab"== e);
+
 /**
  * @author yangzhi
  * @since 2016/2/25
  */
 @Service
-public class ScheduleInitImpl implements ScheduleInit {
+public class ScheduleInit {
 
     @Autowired
     private Scheduler scheduler;
@@ -31,7 +47,8 @@ public class ScheduleInitImpl implements ScheduleInit {
     protected final static Logger LOG = LoggerFactory.getLogger(ScheduleJobServiceImpl.class);
 
     /**
-     * 初始化任务， 使用 PostConstruct 自启动
+     * 初始化定时任务，从数据库中获取任务数据
+     * PostConstruct 注解能自启动
      */
     @PostConstruct
     public void init() {
@@ -48,13 +65,13 @@ public class ScheduleInitImpl implements ScheduleInit {
         // #2 来自jobs.xml 的定时任务
 
 
+
         try {
             scheduler.start();
             System.out.println("schedule is started...");
         } catch (SchedulerException e) {
             e.printStackTrace();
         }
-
 
     }
 }

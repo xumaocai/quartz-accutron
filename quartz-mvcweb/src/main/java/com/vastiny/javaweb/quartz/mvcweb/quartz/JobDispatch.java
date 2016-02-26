@@ -1,5 +1,6 @@
 package com.vastiny.javaweb.quartz.mvcweb.quartz;
 
+import com.vastiny.javaweb.quartz.mvcweb.common.json.GsonUtil;
 import com.vastiny.javaweb.quartz.mvcweb.entity.ScheduleJob;
 import org.quartz.*;
 import org.slf4j.Logger;
@@ -24,7 +25,9 @@ public class JobDispatch implements Job {
 
         ScheduleJob scheduleJob = (ScheduleJob) context.getMergedJobDataMap().get(ScheduleJob.JOB_PARAM_KEY);
 
-        System.out.println("jobName:" + scheduleJob.getJobName() + "  " + scheduleJob);
+        System.out.println("jobName:" + scheduleJob.getJobName() + "  " + GsonUtil.toJson(scheduleJob));
+
+
 
         try {
             Thread.sleep(10000);

@@ -15,7 +15,9 @@
     <import resource="spring-quartz.xml" />
 
     <!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired的属性被注入 -->
-    <context:component-scan base-package="com.vastiny.javaweb.quartz.mvcweb.*" />
+    <context:component-scan base-package="com.vastiny.javaweb.quartz.mvcweb.*" >
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
     <!-- 启动对@AspectJ注解的支持 -->
     <aop:aspectj-autoproxy/>
