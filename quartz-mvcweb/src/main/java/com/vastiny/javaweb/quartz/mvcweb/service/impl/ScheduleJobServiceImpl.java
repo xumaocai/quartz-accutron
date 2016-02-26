@@ -58,7 +58,7 @@ public class ScheduleJobServiceImpl extends BaseService<ScheduleJob> implements 
             }
             return jobList;
         } catch (SchedulerException e) {
-            //演示用，就不处理了
+            // 处理
             return null;
         }
 

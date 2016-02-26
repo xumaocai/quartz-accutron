@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,7 +21,9 @@ import java.util.List;
  * @since 2016/1/22
  */
 
-@RestController
+@Controller
+@Transactional
+@RequestMapping(value = "/task")
 public class TaskController {
 
     @Autowired
@@ -32,7 +35,7 @@ public class TaskController {
     public static Logger LOG = LoggerFactory.getLogger(TaskController.class);
 
 
-    @RequestMapping(value = "index", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
     public String index() {
 
@@ -40,7 +43,7 @@ public class TaskController {
         return "index";
     }
 
-    @RequestMapping("debug")
+    @RequestMapping(value = "debug", method = RequestMethod.GET)
     @ResponseBody
     public String debug() {
         List<ScheduleJob> executingJobList = scheduleJobService.getExecutingJobList();
