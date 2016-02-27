@@ -5,6 +5,7 @@ import com.vastiny.javaweb.quartz.mvcweb.mapper.base.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ScheduleJobMapper extends BaseMapper<ScheduleJob>
 {
@@ -14,4 +15,5 @@ public interface ScheduleJobMapper extends BaseMapper<ScheduleJob>
     List<ScheduleJob> selectExecutionListByUidStatus(@Param("app_type") int app_type,
                                                     @Param("uid") long uid);
 
+    List<ScheduleJob>  selectDynamic(Map map);
 }

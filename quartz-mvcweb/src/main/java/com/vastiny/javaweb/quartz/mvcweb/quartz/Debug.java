@@ -1,7 +1,4 @@
-package com.vastiny.javaweb.quartz.mvcweb.main;
-
-import com.vastiny.javaweb.quartz.mvcweb.service.ScheduleJobService;
-import org.springframework.beans.factory.annotation.Autowired;
+package com.vastiny.javaweb.quartz.mvcweb.quartz;
 
 
 import java.lang.reflect.Constructor;
@@ -9,7 +6,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.lang.reflect.TypeVariable;
 
 /**
  * @author yangzhi

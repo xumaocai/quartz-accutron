@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class JobFactoryContext implements ApplicationContextAware {
 
-    String targetMethod;
+    String targetMethod = "execute";
 
     Map<String, Class> targetTaskMap;
 

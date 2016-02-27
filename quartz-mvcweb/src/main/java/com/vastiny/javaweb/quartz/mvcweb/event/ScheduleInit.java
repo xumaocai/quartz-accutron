@@ -4,7 +4,7 @@ import com.vastiny.javaweb.quartz.mvcweb.common.json.GsonUtil;
 import com.vastiny.javaweb.quartz.mvcweb.entity.ScheduleJob;
 import com.vastiny.javaweb.quartz.mvcweb.service.ScheduleJobService;
 import com.vastiny.javaweb.quartz.mvcweb.service.impl.ScheduleJobServiceImpl;
-import com.vastiny.javaweb.quartz.mvcweb.utils.ScheduleUtils;
+import com.vastiny.javaweb.quartz.mvcweb.common.utils.ScheduleUtils;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.slf4j.Logger;
@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.Date;
 import java.util.List;
 
 
@@ -62,7 +61,11 @@ public class ScheduleInit {
         }
 
         LOG.info("==db jobs==");
-        LOG.info(GsonUtil.toJson(scheduleJobList));
+        try {
+            LOG.info(GsonUtil.toJson(scheduler.getCurrentlyExecutingJobs()));
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
 
 
         /*

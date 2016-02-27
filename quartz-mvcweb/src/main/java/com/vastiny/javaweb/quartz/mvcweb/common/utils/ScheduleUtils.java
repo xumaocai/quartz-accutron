@@ -1,4 +1,4 @@
-package com.vastiny.javaweb.quartz.mvcweb.utils;
+package com.vastiny.javaweb.quartz.mvcweb.common.utils;
 
 import com.vastiny.javaweb.quartz.mvcweb.entity.ScheduleJob;
 import com.vastiny.javaweb.quartz.mvcweb.exceptions.ScheduleException;
