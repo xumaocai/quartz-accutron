@@ -1,36 +1,24 @@
 package com.vastiny.javaweb.quartz.mvcweb.quartz;
 
-import com.vastiny.javaweb.quartz.mvcweb.common.json.GsonUtil;
-import com.vastiny.javaweb.quartz.mvcweb.entity.ScheduleJob;
-import com.vastiny.javaweb.quartz.mvcweb.task.DataConversionTask;
-import org.quartz.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * 任务工厂类,非同步
+ * 完全由反射机制获取Task 列表
  *
- * User: liyd
- * Date: 14-1-3
- * Time: 上午10:11
+ * 完成度：未完成
+ * 风险程度： ★★★☆
+ *
+ * @author yangzhi
+ * @since 2016/2/27
  */
-@DisallowConcurrentExecution
-public class JobDispatch implements Job {
-
-    /* 日志对象 */
-    private static final Logger LOG = LoggerFactory.getLogger(JobDispatch.class);
-
+public class JobTest implements Job{
+    @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-
-        LOG.info("JobSyncFactory execute");
-
-        ScheduleJob scheduleJob = (ScheduleJob) context.getMergedJobDataMap().get(ScheduleJob.JOB_PARAM_KEY);
-
-        System.out.println("jobName:" + scheduleJob.getJobName() + "  " + GsonUtil.toJson(scheduleJob));
-
 
 
         String className = "com.vastiny.javaweb.quartz.mvcweb.task.DataConversionTask";

@@ -33,6 +33,8 @@
         <quartz.version>2.2.2</quartz.version>
         <mybatis.version>3.2.7</mybatis.version>
         <mapper.version>3.3.3</mapper.version>
+        <spring-data-jpa.version>1.7.1.RELEASE</spring-data-jpa.version>
+
 
     </properties>
 

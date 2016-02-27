@@ -55,7 +55,7 @@ public class ScheduleInit {
     public void init() {
 
         // #1 来自数据库的任务
-        /*
+
         List<ScheduleJob> scheduleJobList = scheduleJobService.getAll();
         for (ScheduleJob scheduleJob : scheduleJobList) {
             ScheduleUtils.createScheduleJob(scheduler, scheduleJob);
@@ -63,8 +63,9 @@ public class ScheduleInit {
 
         LOG.info("==db jobs==");
         LOG.info(GsonUtil.toJson(scheduleJobList));
-        */
 
+
+        /*
         ScheduleJob scheduleJob = new ScheduleJob();
         scheduleJob.setScheduleJobId(12345L);
         scheduleJob.setJobName("jobName1");
@@ -76,6 +77,7 @@ public class ScheduleInit {
         scheduleJob.setStatus("1");
 
         ScheduleUtils.createScheduleJob(scheduler, scheduleJob);
+        */
 
 
         // #2 来自jobs.xml 的定时任务

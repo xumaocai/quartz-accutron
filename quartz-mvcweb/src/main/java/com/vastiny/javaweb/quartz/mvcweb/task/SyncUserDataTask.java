@@ -1,28 +1,22 @@
 package com.vastiny.javaweb.quartz.mvcweb.task;
 
 import com.vastiny.javaweb.quartz.mvcweb.entity.ScheduleJob;
-import org.quartz.Job;
 import org.quartz.JobExecutionContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author yangzhi
- * @since 2016/1/22
+ * @since 2016/2/27
  */
-
-public class DataConversionTask extends BaseTask {
-
+public class SyncUserDataTask extends BaseTask {
 
     @Override
     public void execute(JobExecutionContext context) {
 
         ScheduleJob scheduleJob = (ScheduleJob)context.getMergedJobDataMap().get("scheduleJob");
 
-
         if (LOG.isInfoEnabled()) {
             LOG.info(scheduleJob.getDescription());
-            LOG.info("数据转换任务线程开始执行");
+            LOG.info("同步数据开始执行");
         }
     }
 }

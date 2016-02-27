@@ -1,4 +1,4 @@
-package com.vastiny.javaweb.quartz.mvcweb.enums;
+package com.vastiny.javaweb.quartz.mvcweb.common.enums;
 
 /**
  * 枚举接口

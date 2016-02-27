@@ -1,6 +1,7 @@
 package com.vastiny.javaweb.quartz.mvcweb.exceptions;
 
-import com.vastiny.javaweb.quartz.mvcweb.enums.IEnum;
+
+import com.vastiny.javaweb.quartz.mvcweb.common.enums.IEnum;
 
 /**
  * 自定义异常类

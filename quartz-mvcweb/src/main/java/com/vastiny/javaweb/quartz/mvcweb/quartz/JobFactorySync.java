@@ -13,10 +13,10 @@ import org.slf4j.LoggerFactory;
  *
  * Created by liyd on 12/19/14.
  */
-public class JobDispatchConcurrent implements Job {
+public class JobFactorySync implements Job {
 
     /* 日志对象 */
-    private static final Logger LOG = LoggerFactory.getLogger(JobDispatchConcurrent.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JobFactorySync.class);
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
 

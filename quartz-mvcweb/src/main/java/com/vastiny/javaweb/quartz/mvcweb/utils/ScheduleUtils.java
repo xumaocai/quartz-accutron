@@ -2,8 +2,8 @@ package com.vastiny.javaweb.quartz.mvcweb.utils;
 
 import com.vastiny.javaweb.quartz.mvcweb.entity.ScheduleJob;
 import com.vastiny.javaweb.quartz.mvcweb.exceptions.ScheduleException;
-import com.vastiny.javaweb.quartz.mvcweb.quartz.JobDispatch;
-import com.vastiny.javaweb.quartz.mvcweb.quartz.JobDispatchConcurrent;
+import com.vastiny.javaweb.quartz.mvcweb.quartz.JobFactoryAsync;
+import com.vastiny.javaweb.quartz.mvcweb.quartz.JobFactorySync;
 import org.quartz.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,7 +73,7 @@ public class ScheduleUtils {
     public static void createScheduleJob(Scheduler scheduler, String jobName, String jobGroup,
                                          String cronExpression, boolean isSync, Object param) {
         //同步或异步
-        Class<? extends Job> jobClass = isSync ? JobDispatchConcurrent.class : JobDispatch.class;
+        Class<? extends Job> jobClass = isSync ? JobFactorySync.class : JobFactoryAsync.class;
 
         //构建job信息
         JobDetail jobDetail = JobBuilder.newJob(jobClass).withIdentity(jobName, jobGroup).build();

@@ -5,9 +5,6 @@ import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Created by Corey.xu on 2015/10/22.
- */
 public class GsonUtil {
 
     private static final Logger log = LoggerFactory.getLogger(GsonUtil.class);
