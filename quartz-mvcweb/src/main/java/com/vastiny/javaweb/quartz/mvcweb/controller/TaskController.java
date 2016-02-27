@@ -1,6 +1,5 @@
 package com.vastiny.javaweb.quartz.mvcweb.controller;
 
-import com.sun.deploy.net.HttpResponse;
 import com.vastiny.javaweb.quartz.mvcweb.common.json.GsonUtil;
 import com.vastiny.javaweb.quartz.mvcweb.entity.ScheduleJob;
 import com.vastiny.javaweb.quartz.mvcweb.service.ScheduleJobService;
