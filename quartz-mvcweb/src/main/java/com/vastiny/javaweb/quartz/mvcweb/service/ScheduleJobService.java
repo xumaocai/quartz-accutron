@@ -1,12 +1,9 @@
 package com.vastiny.javaweb.quartz.mvcweb.service;
 
-import com.vastiny.javaweb.quartz.mvcweb.entity.PageRequest;
-import com.vastiny.javaweb.quartz.mvcweb.entity.PageResponse;
 import com.vastiny.javaweb.quartz.mvcweb.entity.ScheduleJob;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author yangzhi
@@ -16,9 +13,17 @@ import java.util.Map;
 @Service
 public interface ScheduleJobService {
 
-    public List<ScheduleJob> getAll ();
+    List<ScheduleJob> getAll();
 
-    public List<ScheduleJob> getExecutingJobList();
+    List<ScheduleJob> getExecutingJobList();
 
+    List<ScheduleJob> getAllScheduleJobList();
 
+    int createScheduleJob(ScheduleJob scheduleJob);
+
+    int updateScheduleJob(ScheduleJob scheduleJob);
+
+    int deleteScheduleJob(Long scheduleJobId);
+
+    ScheduleJob findByScheduleJobId(Long scheduleJobId);
 }

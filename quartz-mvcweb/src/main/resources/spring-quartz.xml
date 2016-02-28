@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-    <bean name="scheduler" id="scheduler2" class="org.springframework.scheduling.quartz.SchedulerFactoryBean"/>
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean"/>
 
     <bean name="jobFactoryBean" class="com.vastiny.javaweb.quartz.mvcweb.quartz.JobFactoryContext">
         <property name="targetTaskMap">

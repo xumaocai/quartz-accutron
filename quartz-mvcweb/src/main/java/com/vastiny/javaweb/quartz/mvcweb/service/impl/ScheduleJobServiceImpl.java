@@ -72,4 +72,29 @@ public class ScheduleJobServiceImpl extends BaseService<ScheduleJob> implements 
 
     }
 
+    @Override
+    public List<ScheduleJob> getAllScheduleJobList() {
+        return null;
+    }
+
+    @Override
+    public int createScheduleJob(ScheduleJob scheduleJob) {
+        return this.insert(scheduleJob);
+    }
+
+    @Override
+    public int updateScheduleJob(ScheduleJob scheduleJob) {
+        return this.updateWithoutNullColumn(scheduleJob);
+    }
+
+    @Override
+    public int deleteScheduleJob(Long scheduleJobId) {
+        ScheduleJob scheduleJob = this.findByScheduleJobId(scheduleJobId);
+        return this.deleteByEntity(scheduleJob);
+    }
+
+    @Override
+    public ScheduleJob findByScheduleJobId(Long scheduleJobId) {
+        return scheduleJobMapper.selectById(scheduleJobId);
+    }
 }

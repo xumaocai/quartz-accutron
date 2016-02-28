@@ -32,4 +32,13 @@
 
     </select>
 
+    <select id="selectById" resultMap="ScheduleJobResultMap">
+        SELECT
+         *
+        FROM
+         schedule_job sj
+        WHERE
+         sj.schedule_job_id = #{scheduleJobId}
+    </select>
+
 </mapper>

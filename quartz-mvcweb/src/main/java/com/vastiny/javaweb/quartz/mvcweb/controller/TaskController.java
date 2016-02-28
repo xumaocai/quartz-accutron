@@ -1,7 +1,6 @@
 package com.vastiny.javaweb.quartz.mvcweb.controller;
 
 import com.vastiny.javaweb.quartz.mvcweb.common.json.GsonUtil;
-import com.vastiny.javaweb.quartz.mvcweb.common.utils.ScheduleUtils;
 import com.vastiny.javaweb.quartz.mvcweb.entity.ScheduleJob;
 import com.vastiny.javaweb.quartz.mvcweb.entity.Status;
 import com.vastiny.javaweb.quartz.mvcweb.service.ScheduleJobService;
@@ -29,7 +28,7 @@ public class TaskController {
     @Autowired
     ScheduleJobService scheduleJobService;
 
-    public static Logger LOG = LoggerFactory.getLogger(TaskController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TaskController.class);
 
     @RequestMapping(value = "debug")
     @ResponseBody
@@ -48,13 +47,20 @@ public class TaskController {
 
     @RequestMapping(value = "create", method = RequestMethod.GET)
     public String create() {
-        return "ulc/group/create";
+        return "create";
     }
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
     @ResponseBody
-    public Status create1(@RequestBody String scheduleJson) {
-        return new Status(0, "success");
+    public Status create1(@ModelAttribute ScheduleJob scheduleJob, Model model) {
+        LOG.info(GsonUtil.toJson(scheduleJob));
+        int row = scheduleJobService.createScheduleJob(scheduleJob);
+        if (row > 0) {
+            return new Status(0, "success");
+        } else {
+            return new Status(1, "failure");
+        }
+
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.POST)
@@ -63,15 +69,22 @@ public class TaskController {
         return new Status(0, "success");
     }
 
-    @RequestMapping(value = "{scheduleJobId}/edit", method = RequestMethod.GET)
-    public String edit(@PathVariable(value = "scheduleJobId") Long scheduleJobId, Model model) {
-        return "ulc/group/edit";
+
+    @RequestMapping(value = "/{scheduleJobId}/edit", method = RequestMethod.GET)
+    public String edit(@PathVariable(value = "scheduleJobId") Long scheduleJobId, ModelMap modelMap) {
+        modelMap.addAttribute("scheduleJob", scheduleJobService.findByScheduleJobId(scheduleJobId));
+        return "index";
     }
 
-    @RequestMapping(value = "{scheduleJobId}/edit", method = RequestMethod.POST)
+    @RequestMapping(value = "/{scheduleJobId}/edit", method = RequestMethod.POST)
     @ResponseBody
-    public Status edit1(@PathVariable(value = "scheduleJobId") Long scheduleJobId ,@RequestBody String scheduleJson) {
-        return new Status(0, "success");
+    public Status edit1(@PathVariable(value = "scheduleJobId") Long scheduleJobId, @ModelAttribute ScheduleJob scheduleJob, ModelMap modelMap) {
+        int row = scheduleJobService.updateScheduleJob(scheduleJob);
+        if (row > 0) {
+            return new Status(0, "success");
+        } else {
+            return new Status(1, "failure");
+        }
     }
 
     @RequestMapping(value = "{scheduleJobId}/pause", method = RequestMethod.GET)

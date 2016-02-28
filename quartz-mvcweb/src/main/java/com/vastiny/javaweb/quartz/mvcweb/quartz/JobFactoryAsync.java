@@ -51,6 +51,13 @@ public class JobFactoryAsync implements Job {
         Class currentTask = jobFactoryBean.getTargetTaskMap().get(jobName);
         String methodName = jobFactoryBean.getTargetMethod();
 
+        try {
+            context.getScheduler().getCurrentlyExecutingJobs();
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+
+
         // 没有对应的 task 返回 null
         if (currentTask == null) {
             LOG.info("jobName 没有对应的 task");
@@ -87,6 +94,12 @@ public class JobFactoryAsync implements Job {
             e.printStackTrace();
 
         } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
