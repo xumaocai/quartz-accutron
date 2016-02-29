@@ -8,7 +8,7 @@
         <context:property-placeholder
                 ignore-resource-not-found="true"
                 ignore-unresolvable="true"
-                location="classpath*:/conf/application-development.properties" />
+                location="classpath*:/conf/application-default.properties" />
     </beans>
 
     <beans profile="development">

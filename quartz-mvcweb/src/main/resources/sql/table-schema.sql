@@ -19,17 +19,18 @@ CREATE TABLE IF NOT EXISTS `schedule_job` (
   `job_trigger` varchar(50) NOT NULL,
   `status` varchar(50) NOT NULL,
   `cron_expression` varchar(50) NOT NULL,
-  `is_sync` tinyint(4) NOT NULL,
+  `is_sync` tinyint(1) NOT NULL,
   `description` text NOT NULL,
   `gmt_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `gmt_modify` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`schedule_job_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- 正在导出表  test.schedule_job 的数据：~0 rows (大约)
+-- 正在导出表  test.schedule_job 的数据：~3 rows (大约)
 /*!40000 ALTER TABLE `schedule_job` DISABLE KEYS */;
 INSERT INTO `schedule_job` (`schedule_job_id`, `job_name`, `alias_name`, `job_group`, `job_trigger`, `status`, `cron_expression`, `is_sync`, `description`, `gmt_create`, `gmt_modify`) VALUES
-	(2, 'dataConversion', '测试', 'ceshi_group', 'ceshi_trigger', '0', '*/2 * * * * ?', 0, 'yes it is', '2016-02-14 15:01:54', '2016-02-27 11:32:16');
+	(2, 'syncUserDataTask', '测试', 'ceshi_group', 'ceshi_trigger', '0', '*/3 * * * * ?', 0, 'yes it is', '2016-02-14 15:01:54', '2016-02-29 11:08:57'),
+	(3, 'dataConversion', '数据转换db', 'ceshi_group', 'ceshi_a', '0', '*/20 * * * * ?', 0, 'oh yeah', '2016-02-27 16:56:03', '2016-02-27 16:56:04');
 /*!40000 ALTER TABLE `schedule_job` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

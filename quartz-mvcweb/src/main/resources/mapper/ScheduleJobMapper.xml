@@ -20,18 +20,6 @@
 
     <!--&gt; 大于的意思-->
     <!--&lt; 小于的意思-->
-    <select id="selectScheduleJobs" resultMap="ScheduleJobResultMap">
-        SELECT
-        *
-        FROM
-        schedule_job sj
-        WHERE
-        NOT sj.status = -1
-        ;
-
-
-    </select>
-
     <select id="selectById" resultMap="ScheduleJobResultMap">
         SELECT
          *
