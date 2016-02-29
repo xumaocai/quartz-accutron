@@ -15,6 +15,8 @@ public interface ScheduleJobService {
 
     List<ScheduleJob> getAll();
 
+    ScheduleJob getOne(Long scheduleJobId);
+
     List<ScheduleJob> getExecutingJobList();
 
     int createScheduleJob(ScheduleJob scheduleJob);
@@ -22,8 +24,6 @@ public interface ScheduleJobService {
     int updateScheduleJob(ScheduleJob scheduleJob);
 
     int deleteScheduleJob(Long scheduleJobId);
-
-    ScheduleJob findByScheduleJobId(Long scheduleJobId);
 
     void runOne(Long scheduleJobId);
 

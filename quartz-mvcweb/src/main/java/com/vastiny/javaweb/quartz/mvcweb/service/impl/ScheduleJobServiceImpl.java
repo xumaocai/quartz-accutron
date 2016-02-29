@@ -1,12 +1,15 @@
 package com.vastiny.javaweb.quartz.mvcweb.service.impl;
 
 import com.vastiny.javaweb.quartz.mvcweb.common.constant.StatusConstant;
+import com.vastiny.javaweb.quartz.mvcweb.common.json.GsonUtil;
 import com.vastiny.javaweb.quartz.mvcweb.common.utils.ScheduleUtils;
 import com.vastiny.javaweb.quartz.mvcweb.entity.ScheduleJob;
 import com.vastiny.javaweb.quartz.mvcweb.mapper.ScheduleJobMapper;
 import com.vastiny.javaweb.quartz.mvcweb.service.base.BaseService;
 import com.vastiny.javaweb.quartz.mvcweb.service.ScheduleJobService;
 import org.quartz.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +31,15 @@ public class ScheduleJobServiceImpl extends BaseService<ScheduleJob> implements 
     @Autowired
     private ScheduleJobMapper scheduleJobMapper;
 
+//    private final static Logger LOG = LoggerFactory.getLogger(ScheduleJobService.class);
+
     public List<ScheduleJob> getAll() {
-        return this.findAll();
+        return super.findAll();
+    }
+
+    @Override
+    public ScheduleJob getOne(Long scheduleJobId) {
+        return super.find(scheduleJobId);
     }
 
     @Override
@@ -65,51 +75,48 @@ public class ScheduleJobServiceImpl extends BaseService<ScheduleJob> implements 
     @Override
     public int createScheduleJob(ScheduleJob scheduleJob) {
         ScheduleUtils.createScheduleJob(scheduler, scheduleJob);
-        return this.insert(scheduleJob);
+        return super.insert(scheduleJob);
     }
 
     @Override
     public int updateScheduleJob(ScheduleJob scheduleJob) {
         ScheduleUtils.updateScheduleJob(scheduler, scheduleJob);
-        return this.updateWithoutNullColumn(scheduleJob);
+        return super.updateWithoutNullColumn(scheduleJob);
     }
 
     @Override
     public int deleteScheduleJob(Long scheduleJobId) {
-        ScheduleJob scheduleJob = this.findByScheduleJobId(scheduleJobId);
+        ScheduleJob scheduleJob = super.find(scheduleJobId);
         ScheduleUtils.deleteScheduleJob(scheduler, scheduleJob.getJobName(), scheduleJob.getJobGroup());
-        return this.deleteByEntity(scheduleJob);
-    }
-
-    @Override
-    public ScheduleJob findByScheduleJobId(Long scheduleJobId) {
-        return scheduleJobMapper.selectById(scheduleJobId);
+        return super.deleteByEntity(scheduleJob);
     }
 
     @Override
     public void runOne(Long scheduleJobId) {
-        ScheduleJob scheduleJob = this.findByScheduleJobId(scheduleJobId);
+        ScheduleJob scheduleJob = super.find(scheduleJobId);
         ScheduleUtils.runOnce(scheduler, scheduleJob.getJobName(), scheduleJob.getJobGroup());
     }
 
     @Override
     public int pause(Long scheduleJobId) {
-        ScheduleJob scheduleJob = this.findByScheduleJobId(scheduleJobId);
+        ScheduleJob scheduleJob = scheduleJobMapper.selectById(scheduleJobId);
         ScheduleUtils.pauseJob(scheduler, scheduleJob);
 
         scheduleJob.setStatus(
                 StatusConstant.TaskStatus.PAUSED.getCode());
-        return this.updateWithoutNullColumn(scheduleJob);
+        scheduleJobMapper.updateByPrimaryKeySelective(scheduleJob);
+        int row = super.updateWithoutNullColumn(scheduleJob);
+        return row;
     }
 
     @Override
     public int resume(Long scheduleJobId) {
-        ScheduleJob scheduleJob = this.findByScheduleJobId(scheduleJobId);
+        ScheduleJob scheduleJob = super.find(scheduleJobId);
         ScheduleUtils.resumeJob(scheduler, scheduleJob);
 
         scheduleJob.setStatus(
                 StatusConstant.TaskStatus.EXECUTING.getCode());
-        return this.updateWithoutNullColumn(scheduleJob);
+        return super.updateWithoutNullColumn(scheduleJob);
 
     }
 }

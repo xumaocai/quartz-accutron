@@ -17,10 +17,6 @@ public class GsonUtil {
         return gson.fromJson(json, classOfT);
     }
 
-    public static String entityToJson(Object object) {
-        return gson.toJson(object);
-    }
-
     public static String toJson(Object object) {
         return gson.toJson(object);
     }

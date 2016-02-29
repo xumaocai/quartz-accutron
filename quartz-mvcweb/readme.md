@@ -19,7 +19,9 @@
 </dependency>
 ```
 
-2. 然后把 Task 放到项目里面来
+2. 然后把 Task 放到项目中的 task 目录
+
+3. 在 spring-quartz.xml 中添加对应的 task 类 和定义 task 的名称
 
 
 

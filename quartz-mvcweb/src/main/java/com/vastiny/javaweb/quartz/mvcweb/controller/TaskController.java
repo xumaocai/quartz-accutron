@@ -55,13 +55,12 @@ public class TaskController {
         LOG.info(GsonUtil.toJson(scheduleJob));
         int row = scheduleJobService.createScheduleJob(scheduleJob);
         return "redirect:/";
-
     }
 
 
     @RequestMapping(value = "/{scheduleJobId}/edit", method = RequestMethod.GET)
     public String edit(@PathVariable(value = "scheduleJobId") Long scheduleJobId, ModelMap modelMap) {
-        modelMap.addAttribute("scheduleJob", scheduleJobService.findByScheduleJobId(scheduleJobId));
+        modelMap.addAttribute("scheduleJob", scheduleJobService.getOne(scheduleJobId));
         return "edit";
     }
 
