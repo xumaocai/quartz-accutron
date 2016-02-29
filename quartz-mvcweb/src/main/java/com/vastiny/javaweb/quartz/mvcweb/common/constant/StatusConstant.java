@@ -9,17 +9,21 @@ public class StatusConstant {
     /**
      * 返回 项目中 所有任务相关的状态码
      */
-    public enum TaskStatusCode {
-        NORMAL("NORMAL", "正常状态"),
-        PAUSED("PAUSED", "暂停状态"),
-        COMPLETE("COMPLETE", "触发器完成，但是任务可能还正在执行中"),
-        BLOCKED("BLOCKED", "线程阻塞状态"),
-        ERROR("ERROR", "出现错误");
+    public enum TaskStatus {
+        NONE("NONE", "未改变"),
+        WAITING("WAITING", "任务等待"),
+        ACQUIRED("ACQUIRED", "获得，不知道怎么翻译"),
+        EXECUTING("EXECUTING", "正在执行中"),
+        PAUSED("PAUSED", "任务暂停"),
+        BLOCKED("BLOCKED", "线程阻塞"),
+        PAUSED_BLOCKED("PAUSED_BLOCKED", "任务线程阻塞"),
+        ERROR("ERROR", "执行错误");
+
 
         private String code;
         private String description;
 
-        TaskStatusCode(String code, String description) {
+        TaskStatus(String code, String description) {
             this.code = code;
             this.description = description;
         }
@@ -42,7 +46,7 @@ public class StatusConstant {
 
         @Override
         public String toString() {
-            return "TaskStatusCode{" +
+            return "TaskStatus{" +
                     "code='" + code + '\'' +
                     ", description='" + description + '\'' +
                     '}';

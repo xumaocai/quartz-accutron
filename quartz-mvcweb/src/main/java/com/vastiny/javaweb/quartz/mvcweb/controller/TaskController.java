@@ -63,34 +63,41 @@ public class TaskController {
 
     }
 
-    @RequestMapping(value = "delete", method = RequestMethod.POST)
-    @ResponseBody
-    public Status delete(@RequestBody String schedule_id) {
-        return new Status(0, "success");
-    }
-
 
     @RequestMapping(value = "/{scheduleJobId}/edit", method = RequestMethod.GET)
     public String edit(@PathVariable(value = "scheduleJobId") Long scheduleJobId, ModelMap modelMap) {
         modelMap.addAttribute("scheduleJob", scheduleJobService.findByScheduleJobId(scheduleJobId));
-        return "index";
+        return "edit";
     }
 
     @RequestMapping(value = "/{scheduleJobId}/edit", method = RequestMethod.POST)
-    @ResponseBody
-    public Status edit1(@PathVariable(value = "scheduleJobId") Long scheduleJobId, @ModelAttribute ScheduleJob scheduleJob, ModelMap modelMap) {
+    public String edit1(@PathVariable(value = "scheduleJobId") Long scheduleJobId, @ModelAttribute ScheduleJob scheduleJob, ModelMap modelMap) {
         int row = scheduleJobService.updateScheduleJob(scheduleJob);
-        if (row > 0) {
-            return new Status(0, "success");
-        } else {
-            return new Status(1, "failure");
-        }
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/{scheduleJobId}/delete", method = RequestMethod.GET)
+    public String delete(@PathVariable(value = "scheduleJobId") Long scheduleJobId) {
+        scheduleJobService.deleteScheduleJob(scheduleJobId);
+        return "redirect:/";
     }
 
     @RequestMapping(value = "{scheduleJobId}/pause", method = RequestMethod.GET)
     public String pause(@PathVariable(value = "scheduleJobId") Long scheduleJobId) {
-        return "index";
+        scheduleJobService.pause(scheduleJobId);
+        return "redirect:/";
     }
 
+    @RequestMapping(value = "{scheduleJobId}/resume", method = RequestMethod.GET)
+    public String resume(@PathVariable(value = "scheduleJobId") Long scheduleJobId) {
+        scheduleJobService.resume(scheduleJobId);
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "{scheduleJobId}/run-once", method = RequestMethod.GET)
+    public String runOne(@PathVariable(value = "scheduleJobId") Long scheduleJobId) {
+        scheduleJobService.runOne(scheduleJobId);
+        return "redirect:/";
+    }
 
 }

@@ -26,4 +26,10 @@ public interface ScheduleJobService {
     int deleteScheduleJob(Long scheduleJobId);
 
     ScheduleJob findByScheduleJobId(Long scheduleJobId);
+
+    void runOne(Long scheduleJobId);
+
+    int pause(Long scheduleJobId);
+
+    int resume(Long scheduleJobId);
 }

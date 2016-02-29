@@ -22,27 +22,32 @@
         <section class="content-header">
             <div class="box" style="margin-bottom: 0px">
                 <div class="box-header">
-                    <h3 class="box-title">任务组列表</h3>
+                    <h3 class="box-title">任务列表</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                    <table id="scheduleJobList" class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>任务名称</th>
-                            <th>任务别名</th>
-                            <th>任务分组</th>
-                            <th>触发器ID</th>
-                            <th>任务状态</th>
-                            <th>时间表达式</th>
-                            <th>是否异步</th>
-                            <th>描述</th>
-                            <th>创建时间</th>
-                            <th>更新时间</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach var = "listValue" items = "${scheduleJobList}">
+                    <div>
+                        <div>计划中的任务列表</div>
+                    </div>
+                    <div>
+                        <table id="scheduleJobList" border="1">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>任务名称</th>
+                                <th>任务别名</th>
+                                <th>任务分组</th>
+                                <th>触发器ID</th>
+                                <th>任务状态</th>
+                                <th>时间表达式</th>
+                                <th>是否异步</th>
+                                <th>描述</th>
+                                <th>创建时间</th>
+                                <th>更新时间</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach var="listValue" items="${scheduleJobList}">
                                 <tr>
                                     <td><c:out value="${listValue.scheduleJobId}"/></td>
                                     <td><c:out value="${listValue.jobName}"/></td>
@@ -55,45 +60,53 @@
                                     <td><c:out value="${listValue.description}"/></td>
                                     <td><c:out value="${listValue.gmtCreate}"/></td>
                                     <td><c:out value="${listValue.gmtModify}"/></td>
+                                    <td><input type="button" value="暂停"
+                                               onclick="location.href='/${listValue.scheduleJobId}/pause'"/>
+                                        <input type="button" value="恢复"
+                                               onclick="location.href='/${listValue.scheduleJobId}/resume'"/>
+                                        <input type="button" value="删除"
+                                               onclick="location.href='/${listValue.scheduleJobId}/delete'"/>
+                                        <input type="button" value="运行一次"
+                                               onclick="location.href='/${listValue.scheduleJobId}/run-once'"/></td>
                                 </tr>
                             </c:forEach>
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
 
-                    <table id="executingJobList" class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>任务名称</th>
-                            <th>任务别名</th>
-                            <th>任务分组</th>
-                            <th>触发器ID</th>
-                            <th>任务状态</th>
-                            <th>时间表达式</th>
-                            <th>是否异步</th>
-                            <th>描述</th>
-                            <th>创建时间</th>
-                            <th>更新时间</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach var = "listValue" items = "${executingJobList}">
-                            <tr>
-                                <td><c:out value="${listValue.scheduleJobId}"/></td>
-                                <td><c:out value="${listValue.jobName}"/></td>
-                                <td><c:out value="${listValue.aliasName}"/></td>
-                                <td><c:out value="${listValue.jobGroup}"/></td>
-                                <td><c:out value="${listValue.jobTrigger}"/></td>
-                                <td><c:out value="${listValue.status}"/></td>
-                                <td><c:out value="${listValue.cronExpression}"/></td>
-                                <td><c:out value="${listValue.isSync}"/></td>
-                                <td><c:out value="${listValue.description}"/></td>
-                                <td><c:out value="${listValue.gmtCreate}"/></td>
-                                <td><c:out value="${listValue.gmtModify}"/></td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
+                        <a href="/create">创建新任务</a>
+                        <br/>
+                        <br/>
+                        <br/>
+                    </div>
+
+                    <div>
+                        <div>正在执行的任务</div>
+                        <div>
+
+                            <table id="executingJobList" border="1">
+                                <thead>
+                                <tr>
+                                    <th>任务名称</th>
+                                    <th>任务分组</th>
+                                    <th>触发器名称</th>
+                                    <th>任务状态</th>
+                                    <th>时间表达式</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="listValue" items="${executingJobList}">
+                                    <tr>
+                                        <td><c:out value="${listValue.jobName}"/></td>
+                                        <td><c:out value="${listValue.jobGroup}"/></td>
+                                        <td><c:out value="${listValue.jobTrigger}"/></td>
+                                        <td><c:out value="${listValue.status}"/></td>
+                                        <td><c:out value="${listValue.cronExpression}"/></td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

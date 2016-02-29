@@ -117,14 +117,15 @@ public class ScheduleUtils {
      * 暂停任务
      * 
      * @param scheduler
-     * @param jobName
-     * @param jobGroup
+     * @param scheduleJob
      */
-    public static void pauseJob(Scheduler scheduler, String jobName, String jobGroup) {
+    public static Trigger.TriggerState pauseJob(Scheduler scheduler, ScheduleJob scheduleJob) {
 
-        JobKey jobKey = JobKey.jobKey(jobName, jobGroup);
+        JobKey jobKey = JobKey.jobKey(scheduleJob.getJobName(), scheduleJob.getJobGroup());
         try {
             scheduler.pauseJob(jobKey);
+            TriggerKey triggerKey = new TriggerKey(scheduleJob.getJobTrigger());
+            return scheduler.getTriggerState(triggerKey);
         } catch (SchedulerException e) {
             LOG.error("暂停定时任务失败", e);
             throw new ScheduleException("暂停定时任务失败");
@@ -135,17 +136,18 @@ public class ScheduleUtils {
      * 恢复任务
      *
      * @param scheduler
-     * @param jobName
-     * @param jobGroup
+     * @param scheduleJob
      */
-    public static void resumeJob(Scheduler scheduler, String jobName, String jobGroup) {
+    public static Trigger.TriggerState resumeJob(Scheduler scheduler, ScheduleJob scheduleJob) {
 
-        JobKey jobKey = JobKey.jobKey(jobName, jobGroup);
+        JobKey jobKey = JobKey.jobKey(scheduleJob.getJobName(), scheduleJob.getJobGroup());
         try {
             scheduler.resumeJob(jobKey);
+            TriggerKey triggerKey = new TriggerKey(scheduleJob.getJobTrigger());
+            return scheduler.getTriggerState(triggerKey);
         } catch (SchedulerException e) {
-            LOG.error("暂停定时任务失败", e);
-            throw new ScheduleException("暂停定时任务失败");
+            LOG.error("恢复定时任务失败", e);
+            throw new ScheduleException("恢复定时任务失败");
         }
     }
 

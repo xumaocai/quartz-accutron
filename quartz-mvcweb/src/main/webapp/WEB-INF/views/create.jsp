@@ -22,30 +22,45 @@
         <section class="content-header">
             <div class="box" style="margin-bottom: 0px">
                 <div class="box-header">
-                    <h3 class="box-title">任务组列表</h3>
+                    <h3 class="box-title">创建任务</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
                     <form method="post">
-                        <label>ID</label>
-                        <input type="text" name="scheduleJobId" />
-                        <label>任务名称</label>
-                        <input type="text" name="jobName" />
-                        <label>任务别名</label>
-                        <input type="text" name="aliasName" />
-                        <label>任务分组</label>
-                        <input type="text" name="jobGroup" />
-                        <label>触发器ID</label>
-                        <input type="text" name="jobTrigger" />
-                        <label>任务状态</label>
-                        <input type="text" name="status" />
-                        <label>时间表达式</label>
-                        <input type="text" name="cronExpression" />
-                        <label>是否异步</label>
-                        <input type="text" name="isSync" />
-                        <label>描述</label>
-                        <input type="text" name="description" />
+                        <table>
+                            <tr>
+                                <td>任务名称</td>
+                                <td><input  type="text" name="jobName"></td>
+                            </tr>
+                            <tr>
+                                <td>任务分组</td>
+                                <td><input  type="text" name="jobGroup"></td>
+                            </tr>
+                            <tr>
+                                <td>任务别名</td>
+                                <td><input type="text" name="aliasName"></td>
+                            </tr>
+                            <tr>
+                                <td>触发器名称</td>
+                                <td><input  type="text" name="jobTrigger"></td>
+                            </tr>
+                            <tr>
+                                <td>时间表达式</td>
+                                <td><input type="text" name="cronExpression"></td>
+                            </tr>
+                            <tr>
+                                <td>是否异步</td>
+                                <td><input type="text" name="isSync"></td>
+                            </tr>
+                            <tr>
+                                <td>状态</td>
+                                <td><input type="text" name="status"></td>
+                            </tr>
+                            <tr>
+                                <td>任务描述</td>
+                                <td><input type="text" name="description"></td>
+                            </tr>
+                        </table>
                         <input type="submit" value="创建" />
-
                     </form>
                 </div>
             </div>
