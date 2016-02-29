@@ -17,8 +17,6 @@ public interface ScheduleJobService {
 
     List<ScheduleJob> getExecutingJobList();
 
-    List<ScheduleJob> getAllScheduleJobList();
-
     int createScheduleJob(ScheduleJob scheduleJob);
 
     int updateScheduleJob(ScheduleJob scheduleJob);

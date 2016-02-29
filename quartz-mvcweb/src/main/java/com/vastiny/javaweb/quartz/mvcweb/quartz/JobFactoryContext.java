@@ -7,6 +7,10 @@ import org.springframework.context.ApplicationContextAware;
 import java.util.Map;
 
 /**
+ * 读取 taskName 和 task 的类
+ * 在 bean 初始化的时候，映射 context 到 静态变量
+ * 可以实现不能注入实例时，从 context 里面获取
+ *
  * @author yangzhi
  * @since 2016/2/27
  */

@@ -51,15 +51,10 @@ public class TaskController {
     }
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
-    @ResponseBody
-    public Status create1(@ModelAttribute ScheduleJob scheduleJob, Model model) {
+    public String create1(@ModelAttribute ScheduleJob scheduleJob, Model model) {
         LOG.info(GsonUtil.toJson(scheduleJob));
         int row = scheduleJobService.createScheduleJob(scheduleJob);
-        if (row > 0) {
-            return new Status(0, "success");
-        } else {
-            return new Status(1, "failure");
-        }
+        return "redirect:/";
 
     }
 
@@ -71,7 +66,8 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/{scheduleJobId}/edit", method = RequestMethod.POST)
-    public String edit1(@PathVariable(value = "scheduleJobId") Long scheduleJobId, @ModelAttribute ScheduleJob scheduleJob, ModelMap modelMap) {
+    public String edit1(@PathVariable(value = "scheduleJobId") Long scheduleJobId,
+                        @ModelAttribute ScheduleJob scheduleJob, ModelMap modelMap) {
         int row = scheduleJobService.updateScheduleJob(scheduleJob);
         return "redirect:/";
     }

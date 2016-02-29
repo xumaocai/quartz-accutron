@@ -13,19 +13,23 @@ import org.slf4j.LoggerFactory;
  *
  * Created by liyd on 12/19/14.
  */
-public class JobFactorySync implements Job {
+public class JobFactorySync extends JobFactory implements Job {
 
     /* 日志对象 */
     private static final Logger LOG = LoggerFactory.getLogger(JobFactorySync.class);
 
-    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+    public void execute(JobExecutionContext context) throws JobExecutionException {
 
-        LOG.info("JobSyncFactory execute");
+        ScheduleJob scheduleJob = (ScheduleJob) context.getMergedJobDataMap().get(ScheduleJob.JOB_PARAM_KEY);
 
-        JobDataMap mergedJobDataMap = jobExecutionContext.getMergedJobDataMap();
-        ScheduleJob scheduleJob = (ScheduleJob) mergedJobDataMap.get(ScheduleJob.JOB_PARAM_KEY);
+        LOG.info("=======");
+        LOG.info("JobSyncFactory Execute");
+        LOG.info("JobName:" + scheduleJob.getJobName());
+        // LOG.info("JobDetail:" + GsonUtil.toJson(scheduleJob));
 
-        System.out.println("jobName:" + scheduleJob.getJobName() + "  " + scheduleJob);
+        String jobName = scheduleJob.getJobName();
+        // 执行 jobName 与 taskName 相同的任务
+        runTask(jobName, context);
 
         try {
             Thread.sleep(10000);

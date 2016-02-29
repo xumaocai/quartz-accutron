@@ -1,4 +1,4 @@
-package com.vastiny.javaweb.quartz.mvcweb.quartz;
+package com.vastiny.javaweb.quartz.mvcweb.main;
 
 
 import java.lang.reflect.Constructor;

@@ -7,8 +7,6 @@ import com.vastiny.javaweb.quartz.mvcweb.mapper.ScheduleJobMapper;
 import com.vastiny.javaweb.quartz.mvcweb.service.base.BaseService;
 import com.vastiny.javaweb.quartz.mvcweb.service.ScheduleJobService;
 import org.quartz.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +20,6 @@ import java.util.List;
 
 @Service
 public class ScheduleJobServiceImpl extends BaseService<ScheduleJob> implements ScheduleJobService {
-
-    protected final static Logger LOG = LoggerFactory.getLogger(ScheduleJobServiceImpl.class);
 
     @Autowired
     private Scheduler scheduler;
@@ -40,7 +36,7 @@ public class ScheduleJobServiceImpl extends BaseService<ScheduleJob> implements 
     public List<ScheduleJob> getExecutingJobList() {
         try {
             List<JobExecutionContext> executingJobs = scheduler.getCurrentlyExecutingJobs();
-            List<ScheduleJob> jobList = new ArrayList<ScheduleJob>(executingJobs.size());
+            List<ScheduleJob> jobList = new ArrayList<>(executingJobs.size());
             for (JobExecutionContext executingJob : executingJobs) {
                 ScheduleJob job = new ScheduleJob();
                 JobDetail jobDetail = executingJob.getJobDetail();
@@ -64,11 +60,6 @@ public class ScheduleJobServiceImpl extends BaseService<ScheduleJob> implements 
             return null;
         }
 
-    }
-
-    @Override
-    public List<ScheduleJob> getAllScheduleJobList() {
-        return null;
     }
 
     @Override

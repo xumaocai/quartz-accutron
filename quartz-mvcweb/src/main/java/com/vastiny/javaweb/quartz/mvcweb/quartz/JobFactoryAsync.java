@@ -25,7 +25,7 @@ import java.util.Locale;
  */
 @Component
 @DisallowConcurrentExecution
-public class JobFactoryAsync implements Job {
+public class JobFactoryAsync extends JobFactory implements Job {
 
     /* 日志对象 */
     private static final Logger LOG = LoggerFactory.getLogger(JobFactoryAsync.class);
@@ -42,66 +42,11 @@ public class JobFactoryAsync implements Job {
         String jobName = scheduleJob.getJobName();
         // 执行 jobName 与 taskName 相同的任务
         runTask(jobName, context);
-    }
-
-    private void runTask(String jobName, JobExecutionContext context) {
-
-        JobFactoryContext jobFactoryBean = (JobFactoryContext) JobFactoryContext.getBean("jobFactoryBean");
-
-        Class currentTask = jobFactoryBean.getTargetTaskMap().get(jobName);
-        String methodName = jobFactoryBean.getTargetMethod();
-
-        try {
-            context.getScheduler().getCurrentlyExecutingJobs();
-        } catch (SchedulerException e) {
-            e.printStackTrace();
-        }
-
-
-        // 没有对应的 task 返回 null
-        if (currentTask == null) {
-            LOG.info("jobName 没有对应的 task");
-            return;
-        }
-
-
-        try {
-            // 生成方法的参数
-            Class[] cArg = new Class[1];
-            cArg[0] = JobExecutionContext.class;
-
-            // 获取方法
-            Method m = currentTask.getMethod(methodName, cArg);
-
-            // 生成类实例
-            Object o = currentTask.newInstance();
-
-            // 方法调用
-            m.invoke(o, context);
-
-        } catch (InstantiationException e) {
-            // 创建实例失败，实例化时失败
-            e.printStackTrace();
-
-        } catch (IllegalAccessException e) {
-            // 创建实例失败，没有权限创建
-            // 调用方法失败，没有权限执行
-            e.printStackTrace();
-
-        }
-        catch (InvocationTargetException e) {
-            // 调用方法失败
-            e.printStackTrace();
-
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
 
         try {
             Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 }

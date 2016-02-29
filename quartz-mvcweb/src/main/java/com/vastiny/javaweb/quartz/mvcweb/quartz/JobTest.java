@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
  * @author yangzhi
  * @since 2016/2/27
  */
-public class JobTest implements Job{
+public class JobTest implements Job {
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
 
