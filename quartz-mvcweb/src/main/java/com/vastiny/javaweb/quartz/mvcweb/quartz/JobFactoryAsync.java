@@ -1,20 +1,10 @@
 package com.vastiny.javaweb.quartz.mvcweb.quartz;
 
-import com.vastiny.javaweb.quartz.mvcweb.common.json.GsonUtil;
 import com.vastiny.javaweb.quartz.mvcweb.entity.ScheduleJob;
-import com.vastiny.javaweb.quartz.mvcweb.service.ScheduleJobService;
-import com.vastiny.javaweb.quartz.mvcweb.task.BaseTask;
 import org.quartz.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
 /**
  * 任务工厂类,非同步

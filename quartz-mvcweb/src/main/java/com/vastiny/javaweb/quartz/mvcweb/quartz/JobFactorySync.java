@@ -2,7 +2,6 @@ package com.vastiny.javaweb.quartz.mvcweb.quartz;
 
 import com.vastiny.javaweb.quartz.mvcweb.entity.ScheduleJob;
 import org.quartz.Job;
-import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;

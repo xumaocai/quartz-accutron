@@ -2,7 +2,7 @@
 
 ### 启动项目
 
-1. 创建 test 数据库，并导入 resources/sql/table-schema.sql
+1. 创建 `test` 数据库，并导入 `resources/sql/table-schema.sql`
 
 2. 配置 tomcat 服务器启动即可
 
@@ -21,7 +21,20 @@
 
 2. 然后把 Task 放到项目中的 task 目录
 
-3. 在 spring-quartz.xml 中添加对应的 task 类 和定义 task 的名称
+3. 在 `spring-quartz.xml` 中添加对应的 task 类 且定义 task 的名称
+
+
+### 边界条件分析
+quartz 里面有几个关键参数：`concurrent`，`sync`，`timeout`，`durability`，
+- Concurrent - 允许同一个任务同时运行。annotation tells Quartz not to execute multiple instances of a given job definition (that refers to the given job class) concurrently.
+- Sync - 同 Concurrent 是一个概念，任务同时运行。
+- Timeout - 在 Job 延时多少时，停止执行前面的任务。
+- Durability - 如果没有触发器（trigger)，那么这个Job 会被删除。if a job is non-durable, it is automatically deleted from the scheduler once there are no longer any active triggers associated with it. In other words, non-durable jobs have a life span bounded by the existence of its triggers.
+
+
+#### 宕机恢复
+
+#### 死锁检测
 
 
 
@@ -30,6 +43,15 @@
 
 ### Inspect code
 - shift + alt + i - check useless code
+
+### Mybatis Generator
+```
+// 在命令行中运行下面的命令可以生成 mapper 和 entity
+mvn mybatis-generator:generate
+
+// 之后会在 项目中生成 generator 文件夹，里面包含了生成的文件
+```
+
 
 
 ## Problem
@@ -48,7 +70,7 @@
 - context 出现三次， 原因待查
 Looking for @ControllerAdvice: WebApplicationContext for namespace 'springServlet-servlet'
 
-## Thinks
+## Thanks
 
 - [Spring 3整合Quartz 2实现定时任务](http://www.dexcoder.com/selfly/article/308)
 - lijing

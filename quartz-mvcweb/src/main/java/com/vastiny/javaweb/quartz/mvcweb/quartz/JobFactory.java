@@ -1,6 +1,5 @@
 package com.vastiny.javaweb.quartz.mvcweb.quartz;
 
-import com.vastiny.javaweb.quartz.mvcweb.entity.ScheduleJob;
 import org.quartz.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,15 +1,12 @@
 package com.vastiny.javaweb.quartz.mvcweb.service.impl;
 
 import com.vastiny.javaweb.quartz.mvcweb.common.constant.StatusConstant;
-import com.vastiny.javaweb.quartz.mvcweb.common.json.GsonUtil;
 import com.vastiny.javaweb.quartz.mvcweb.common.utils.ScheduleUtils;
 import com.vastiny.javaweb.quartz.mvcweb.entity.ScheduleJob;
 import com.vastiny.javaweb.quartz.mvcweb.mapper.ScheduleJobMapper;
 import com.vastiny.javaweb.quartz.mvcweb.service.base.BaseService;
 import com.vastiny.javaweb.quartz.mvcweb.service.ScheduleJobService;
 import org.quartz.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
