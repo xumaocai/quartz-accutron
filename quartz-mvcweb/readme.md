@@ -25,14 +25,23 @@
 
 
 ### 边界条件分析
-quartz 里面有几个关键参数：`concurrent`，`sync`，`timeout`，`durability`，
+quartz 里面有几个关键参数：
 - Concurrent - 允许同一个任务同时运行。annotation tells Quartz not to execute multiple instances of a given job definition (that refers to the given job class) concurrently.
 - Sync - 同 Concurrent 是一个概念，任务同时运行。
 - Timeout - 在 Job 延时多少时，停止执行前面的任务。
 - Durability - 如果没有触发器（trigger)，那么这个Job 会被删除。if a job is non-durable, it is automatically deleted from the scheduler once there are no longer any active triggers associated with it. In other words, non-durable jobs have a life span bounded by the existence of its triggers.
-
+- Volatility - 调用函数 `shutdown(true)`，可以让定时任务完成所有当前正在运行的任务后，关闭。
 
 #### 宕机恢复
+```
+Job Recoverability
+When the Scheduler experiences an unexpected shutdown and a job is executing, a recoverable job is re-executed when the Scheduler is restarted. The job starts executing again right from the beginning. The Scheduler has no way of knowing where the job was during execution when the program was stopped and, therefore, must start all over again.
+To set a job to be recoverable, use the following method:
+public void setRequestsRecovery(boolean shouldRecover);
+
+http://stackoverflow.com/questions/19267263/quartz-jobdetail-requestrecovery
+http://stackoverflow.com/questions/14222909/quartz-recovering-from-multiple-days-misfire
+```
 
 #### 死锁检测
 
@@ -50,6 +59,9 @@ quartz 里面有几个关键参数：`concurrent`，`sync`，`timeout`，`durabi
 mvn mybatis-generator:generate
 
 // 之后会在 项目中生成 generator 文件夹，里面包含了生成的文件
+
+// 详细的使用可参考：
+// http://git.oschina.net/free/Mapper
 ```
 
 

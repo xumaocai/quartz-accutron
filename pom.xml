@@ -12,6 +12,7 @@
         <module>quartz-simple</module>
         <module>quartz-xmljob</module>
         <module>quartz-mvcweb</module>
+        <module>quartz-xmlweb</module>
     </modules>
 
 

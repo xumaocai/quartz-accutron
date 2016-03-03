@@ -44,6 +44,15 @@ public class StatusConstant {
             this.description = description;
         }
 
+        public static TaskStatus get(String code) {
+            for (TaskStatus taskStatus : values()) {
+                if (taskStatus.getCode().equals(code)) {
+                    return taskStatus;
+                }
+            }
+            return null;
+        }
+
         @Override
         public String toString() {
             return "TaskStatus{" +

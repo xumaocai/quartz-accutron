@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.List;
 
 
@@ -94,5 +95,18 @@ public class ScheduleInit {
             e.printStackTrace();
         }
 
+    }
+
+    @PreDestroy
+    public void destory() {
+        try {
+            if (!scheduler.isShutdown()) {
+                scheduler.shutdown();
+            }
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        } finally {
+            LOG.info("scheduler is shutdown.");
+        }
     }
 }

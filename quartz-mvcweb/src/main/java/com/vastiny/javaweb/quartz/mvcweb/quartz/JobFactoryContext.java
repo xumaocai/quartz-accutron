@@ -28,11 +28,11 @@ public class JobFactoryContext implements ApplicationContextAware {
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.context = applicationContext;
+        context = applicationContext;
     }
 
-    public static Object getBean(String name) {
-        return context.getBean(name);
+    public static <T> T getBean(String name, Class<T> type) {
+        return (T)context.getBean(name, type);
     }
 
     public String getTargetMethod() {
