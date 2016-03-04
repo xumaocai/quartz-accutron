@@ -1,6 +1,7 @@
 package com.vastiny.javaweb.quartz.xmlweb.service;
 
 import com.vastiny.javaweb.quartz.xmlweb.entity.ScheduleJob;
+import org.quartz.SchedulerException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,5 +14,5 @@ import java.util.List;
 @Service
 public interface ScheduleJobService {
 
-    List<ScheduleJob> getAll();
+    List<ScheduleJob> getAll() throws SchedulerException;
 }
