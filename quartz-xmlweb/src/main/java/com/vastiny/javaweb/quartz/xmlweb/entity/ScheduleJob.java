@@ -1,22 +1,14 @@
 package com.vastiny.javaweb.quartz.xmlweb.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
 import java.util.Date;
 
-@Table(name = "schedule_job")
 public class ScheduleJob {
 
     /** 任务调度的参数key */
-    @Transient
     public static final String JOB_PARAM_KEY    = "scheduleJob";
 
-    @Column(name = "job_name")
     private String jobName;
 
-    @Column(name = "job_group")
     private String jobGroup;
 
     private String triggerName;
@@ -25,16 +17,12 @@ public class ScheduleJob {
 
     private String status;
 
-    @Column(name = "cron_expression")
     private String cronExpression;
 
-    @Column(name = "is_concurrent")
     private Boolean isConcurrent;
 
-    @Column(name = "gmt_create")
     private Date gmtCreate;
 
-    @Column(name = "gmt_modify")
     private Date gmtModify;
 
     private Date nextFireTime;

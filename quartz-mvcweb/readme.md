@@ -11,17 +11,19 @@
 ### 升级步骤 1.x -> 2.x
 
 1. 升级 quartz 到最新版本
-```
-<dependency>
-    <groupId>org.quartz-scheduler</groupId>
-    <artifactId>quartz</artifactId>
-    <version>2.2.2</version>
-</dependency>
-```
 
 2. 然后把 Task 放到项目中的 task 目录
 
 3. 在 `spring-quartz.xml` 中添加对应的 task 类 且定义 task 的名称
+
+
+### 新版优点
+- 对 job 更多的属性修饰,比如 添加 description.
+- 支持 对 job 直接同时运行是否注解
+- 实现 job 接口,可以在任务执行时,获取 JobExecutionContext
+- 通过 JobExecutionContext 可以实现通用任务
+- 通过 JobExecutionContext 可以获取 datamap,获取其它的任务执行情况
+
 
 
 ### 边界条件分析

@@ -4,7 +4,10 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean"/>
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <!--读取 quartz 的配置文件-->
+        <property name="configLocation" value="classpath:quartz.properties"/>
+    </bean>
 
     <bean name="jobFactoryBean" class="com.vastiny.javaweb.quartz.mvcweb.quartz.JobFactoryContext">
         <property name="targetTaskMap">

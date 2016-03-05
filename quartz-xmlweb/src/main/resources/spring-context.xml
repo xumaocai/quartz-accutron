@@ -17,6 +17,4 @@
         <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
     </context:component-scan>
 
-    <!-- 启动对@AspectJ注解的支持 -->
-    <aop:aspectj-autoproxy/>
 </beans>
