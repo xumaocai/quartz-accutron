@@ -1,5 +1,6 @@
 package com.vastiny.javaweb.quartz.xmlweb.service.impl;
 
+import com.vastiny.javaweb.quartz.xmlweb.common.SchedulerUtil;
 import com.vastiny.javaweb.quartz.xmlweb.entity.ScheduleJob;
 import com.vastiny.javaweb.quartz.xmlweb.service.ScheduleJobService;
 import org.quartz.*;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -24,37 +26,93 @@ public class ScheduleJobServiceImpl implements ScheduleJobService {
     @Autowired
     private Scheduler scheduler;
 
-
     private final static Logger LOG = LoggerFactory.getLogger(ScheduleJobService.class);
 
-    public List<ScheduleJob> getAll() throws SchedulerException {
-
-        int JobCount = scheduler.getMetaData().getNumberOfJobsExecuted();
-
-
-        JobKey jobKey = new JobKey("job_work_name", "job_work");
-        TriggerKey triggerKey = new TriggerKey("name");
-        Trigger trigger = scheduler.getTrigger(triggerKey);
-        scheduler.pauseAll();
-        scheduler.start();
-        scheduler.shutdown(true);
-        scheduler.resumeAll();
-        scheduler.checkExists(triggerKey);
-        scheduler.checkExists(jobKey);
-
-        Set<JobKey> jobKeySet = scheduler.getJobKeys( GroupMatcher.anyJobGroup());
-
-        JobDetail jobDetail = scheduler.getJobDetail(jobKey);
-        List<Trigger> triggerList = (List<Trigger>) scheduler.getTriggersOfJob(jobKey);
-//        TriggerKey triggerKey = scheduler.getTriggersOfJob(jobKey).get(0).getKey();
-
-
-        List<JobExecutionContext> jobExecutionContextList = scheduler.getCurrentlyExecutingJobs();
-
-        List<String> groupName = scheduler.getJobGroupNames();
-        Set<JobKey> jobKeySet1 = scheduler.getJobKeys( GroupMatcher.groupEquals(groupName.get(0)));
-
-        return new ArrayList<>();
+    @Override
+    public List<ScheduleJob> getAllScheduleJobList() {
+        try {
+            return SchedulerUtil.getAllScheduleJobList(scheduler);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+            LOG.error("getAllScheduleJobList Fail");
+            return null;
+        }
     }
 
+    @Override
+    public List<ScheduleJob> getExecutingJobList() {
+        try {
+            return SchedulerUtil.getExecutingJobList(scheduler);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+            LOG.error("getExecutingJobList Fail");
+            return null;
+        }
+    }
+
+    @Override
+    public void pauseJob(TriggerKey triggerKey) {
+        ScheduleJob scheduleJob = this.getScheduleJob(triggerKey);
+        try {
+            SchedulerUtil.pauseJob(scheduler, scheduleJob);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void resumeJob(TriggerKey triggerKey) {
+        ScheduleJob scheduleJob = this.getScheduleJob(triggerKey);
+        try {
+            SchedulerUtil.resumeJob(scheduler, scheduleJob);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean deleteJob(TriggerKey triggerKey) {
+        ScheduleJob scheduleJob = this.getScheduleJob(triggerKey);
+        try {
+            return SchedulerUtil.deleteJob(scheduler, scheduleJob);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    @Override
+    public void runOnceNow(TriggerKey triggerKey) {
+        ScheduleJob scheduleJob = this.getScheduleJob(triggerKey);
+
+        try {
+            SchedulerUtil.runOnceNow(scheduler, scheduleJob);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+            LOG.error("runOnceNow Fail!");
+        }
+    }
+
+    private ScheduleJob getScheduleJob(TriggerKey triggerKey) {
+        ScheduleJob scheduleJob = null;
+        try {
+            scheduleJob = SchedulerUtil.getScheduleJob(scheduler, triggerKey);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+            LOG.error("getScheduleJob Fail!");
+        }
+        return scheduleJob;
+    }
+
+    @Override
+    public Map<String, String> getInfo() {
+        try {
+            return SchedulerUtil.getInfo(scheduler);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+            LOG.error("getInfo Fail!");
+            return null;
+        }
+    }
 }

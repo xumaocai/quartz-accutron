@@ -2,9 +2,13 @@
 
 ## 概览
 
+- quartz-xmlweb - 直接从 xml 中读取定时任务数据,通过 web 展示
+- quartz-mvcweb - 结合 spring，做可视化的任务调度,用数据库做记录
 - quartz-simple - 简单的基本示例，很多来自官方的解释
 - quartz-xmljob - 兼容 quartz 1.x 版本的代码，可快速切换到 2.x
-- quartz-mvcweb - 结合 spring，做可视化的任务调度
+
+### xmlweb
+![pt_black](https://raw.github.com/yantze/quartz-accutron/master/other/img/xmlweb1.png)
 
 ## 使用 `git flow` 开发
 

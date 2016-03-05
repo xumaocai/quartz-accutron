@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <!-- 使用MethodInvokingJobDetailFactoryBean，任务类可以不实现Job接口，通过targetMethod指定调用方法-->
+    <bean id="dataConversionTask" class="com.vastiny.javaweb.quartz.xmlweb.task.DataConversionTask"/>
+    <bean id="dataConversionDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="name" value="job_work_name"/>
+        <property name="group" value="job_work_group"/>
+        <!--false表示等上一个任务执行完后再开启新的任务-->
+        <property name="concurrent" value="false"/>
+        <property name="targetObject">
+            <ref bean="dataConversionTask"/>
+        </property>
+        <property name="targetMethod">
+            <value>execute</value>
+        </property>
+    </bean>
+    <!--  调度触发器 -->
+    <bean id="dataConversionTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="name" value="work_default_name"/>
+        <property name="group" value="work_default_group"/>
+        <property name="jobDetail">
+            <ref bean="dataConversionDetail" />
+        </property>
+        <property name="cronExpression">
+            <value>0/5 * * * * ?</value>
+        </property>
+        <property name="description" value="这里是在测试这个触发器的备注" />
+    </bean>
+
+
+    <!-- 使用MethodInvokingJobDetailFactoryBean，任务类可以不实现Job接口，通过targetMethod指定调用方法-->
+    <bean id="syncUserDataTask" class="com.vastiny.javaweb.quartz.xmlweb.task.SyncUserDataTask"/>
+    <bean id="syncUserDataDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="name" value="syncUserData"/>
+        <property name="group" value="syncUserDataGroup"/>
+        <!--false表示等上一个任务执行完后再开启新的任务-->
+        <property name="concurrent" value="true"/>
+        <property name="targetObject">
+            <ref bean="syncUserDataTask"/>
+        </property>
+        <property name="targetMethod">
+            <value>execute</value>
+        </property>
+    </bean>
+    <!--  调度触发器 -->
+    <bean id="syncUserDataTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="name" value="syncUserData"/>
+        <property name="group" value="syncUserDataGroup"/>
+        <property name="jobDetail">
+            <ref bean="syncUserDataDetail" />
+        </property>
+        <property name="cronExpression">
+            <value>0/10 * * * * ?</value>
+        </property>
+        <property name="description" value="用户同步数据触发器, 可同时运行这个任务多次" />
+    </bean>
+
+    <!-- 调度工厂 -->
+    <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="dataConversionTrigger"/>
+                <ref bean="syncUserDataTrigger"/>
+            </list>
+        </property>
+    </bean>
+
+
+</beans>

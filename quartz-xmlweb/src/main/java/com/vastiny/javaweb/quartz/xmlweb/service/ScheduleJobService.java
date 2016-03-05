@@ -2,9 +2,11 @@ package com.vastiny.javaweb.quartz.xmlweb.service;
 
 import com.vastiny.javaweb.quartz.xmlweb.entity.ScheduleJob;
 import org.quartz.SchedulerException;
+import org.quartz.TriggerKey;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author yangzhi
@@ -14,5 +16,13 @@ import java.util.List;
 @Service
 public interface ScheduleJobService {
 
-    List<ScheduleJob> getAll() throws SchedulerException;
+    List<ScheduleJob> getAllScheduleJobList();
+    List<ScheduleJob> getExecutingJobList();
+
+    void pauseJob(TriggerKey triggerKey);
+    void resumeJob(TriggerKey triggerKey);
+    boolean deleteJob(TriggerKey triggerKey);
+    void runOnceNow(TriggerKey triggerKey);
+
+    Map<String, String> getInfo();
 }

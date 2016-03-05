@@ -13,29 +13,23 @@ public class ScheduleJob {
     @Transient
     public static final String JOB_PARAM_KEY    = "scheduleJob";
 
-    @Id
-    @Column(name = "schedule_job_id")
-    private Long scheduleJobId;
-
     @Column(name = "job_name")
     private String jobName;
-
-    @Column(name = "alias_name")
-    private String aliasName;
 
     @Column(name = "job_group")
     private String jobGroup;
 
-    @Column(name = "job_trigger")
-    private String jobTrigger;
+    private String triggerName;
+
+    private String triggerGroup;
 
     private String status;
 
     @Column(name = "cron_expression")
     private String cronExpression;
 
-    @Column(name = "is_sync")
-    private Boolean isSync;
+    @Column(name = "is_concurrent")
+    private Boolean isConcurrent;
 
     @Column(name = "gmt_create")
     private Date gmtCreate;
@@ -43,21 +37,10 @@ public class ScheduleJob {
     @Column(name = "gmt_modify")
     private Date gmtModify;
 
+    private Date nextFireTime;
+    private Date previousFireTime;
+
     private String description;
-
-    /**
-     * @return schedule_job_id
-     */
-    public Long getScheduleJobId() {
-        return scheduleJobId;
-    }
-
-    /**
-     * @param scheduleJobId
-     */
-    public void setScheduleJobId(Long scheduleJobId) {
-        this.scheduleJobId = scheduleJobId;
-    }
 
     /**
      * @return job_name
@@ -74,20 +57,6 @@ public class ScheduleJob {
     }
 
     /**
-     * @return alias_name
-     */
-    public String getAliasName() {
-        return aliasName;
-    }
-
-    /**
-     * @param aliasName
-     */
-    public void setAliasName(String aliasName) {
-        this.aliasName = aliasName;
-    }
-
-    /**
      * @return job_group
      */
     public String getJobGroup() {
@@ -101,18 +70,28 @@ public class ScheduleJob {
         this.jobGroup = jobGroup;
     }
 
-    /**
-     * @return job_trigger
-     */
-    public String getJobTrigger() {
-        return jobTrigger;
+    public String getTriggerName() {
+        return triggerName;
     }
 
-    /**
-     * @param jobTrigger
-     */
-    public void setJobTrigger(String jobTrigger) {
-        this.jobTrigger = jobTrigger;
+    public void setTriggerName(String triggerName) {
+        this.triggerName = triggerName;
+    }
+
+    public String getTriggerGroup() {
+        return triggerGroup;
+    }
+
+    public void setTriggerGroup(String triggerGroup) {
+        this.triggerGroup = triggerGroup;
+    }
+
+    public Boolean getConcurrent() {
+        return isConcurrent;
+    }
+
+    public void setConcurrent(Boolean concurrent) {
+        isConcurrent = concurrent;
     }
 
     /**
@@ -144,17 +123,17 @@ public class ScheduleJob {
     }
 
     /**
-     * @return is_sync
+     * @return is_concurrent
      */
-    public Boolean getIsSync() {
-        return isSync;
+    public Boolean getIsConcurrent() {
+        return isConcurrent;
     }
 
     /**
-     * @param isSync
+     * @param isConcurrent
      */
-    public void setIsSync(Boolean isSync) {
-        this.isSync = isSync;
+    public void setIsConcurrent(Boolean isConcurrent) {
+        this.isConcurrent = isConcurrent;
     }
 
     /**
@@ -185,6 +164,22 @@ public class ScheduleJob {
         this.gmtModify = gmtModify;
     }
 
+    public Date getNextFireTime() {
+        return nextFireTime;
+    }
+
+    public void setNextFireTime(Date nextFireTime) {
+        this.nextFireTime = nextFireTime;
+    }
+
+    public Date getPreviousFireTime() {
+        return previousFireTime;
+    }
+
+    public void setPreviousFireTime(Date previousFireTime) {
+        this.previousFireTime = previousFireTime;
+    }
+
     /**
      * @return description
      */
@@ -192,9 +187,6 @@ public class ScheduleJob {
         return description;
     }
 
-    /**
-     * @param description
-     */
     public void setDescription(String description) {
         this.description = description;
     }
