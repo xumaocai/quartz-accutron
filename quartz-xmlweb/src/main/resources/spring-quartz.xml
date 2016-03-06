@@ -28,7 +28,7 @@
             <ref bean="dataConversionDetail" />
         </property>
         <property name="cronExpression">
-            <value>0/5 * * * * ?</value>
+            <value>0/2 * * * * ?</value>
         </property>
         <property name="description" value="这里是在测试这个触发器的备注" />
     </bean>
@@ -67,8 +67,23 @@
         <property name="triggers">
             <list>
                 <ref bean="dataConversionTrigger"/>
-                <ref bean="syncUserDataTrigger"/>
+                <!--<ref bean="syncUserDataTrigger"/>-->
             </list>
+        </property>
+        <property name="quartzProperties">
+            <map>
+                <!--下一次任务等待超时时长, 默认忍受 60000ms, 60秒,超过后就不执行下一个任务-->
+                <!--The the number of milliseconds the scheduler will 'tolerate' a trigger to pass its next-fire-time by, before being considered "misfired".-->
+                <entry key="org.quartz.jobStore.misfireThreshold" value="60000"/>
+
+                <!--添加日志执行记录-->
+                <entry key="org.quartz.plugin.triggHistory.class" value="org.quartz.plugins.history.LoggingJobHistoryPlugin"/>
+                <!--<entry key="org.quartz.plugin.triggHistory.jobToBeFiredMessage" value="task start now"/>-->
+
+                <!--添加定时任务关闭事件钩子, 定时任务关闭时默认是等所有job完成. 设置这个属性为 false,可杀掉任务, 这个跟 scheduler.shutdown(false) 一样 -->
+                <!--<entry key="org.quartz.plugin.shutdownHook.class" value="org.quartz.plugins.management.ShutdownHookPlugin"/>-->
+                <!--<entry key="org.quartz.plugin.shutdownHook.cleanShutdown" value="false"/>-->
+             </map>
         </property>
     </bean>
 

@@ -7,6 +7,9 @@
     <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <!--读取 quartz 的配置文件-->
         <property name="configLocation" value="classpath:quartz.properties"/>
+        <property name="applicationContextSchedulerContextKey">
+            <value>applicationContext</value>
+        </property>
     </bean>
 
     <bean name="jobFactoryBean" class="com.vastiny.javaweb.quartz.mvcweb.quartz.JobFactoryContext">
