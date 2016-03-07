@@ -67,7 +67,7 @@
         <property name="triggers">
             <list>
                 <ref bean="dataConversionTrigger"/>
-                <!--<ref bean="syncUserDataTrigger"/>-->
+                <ref bean="syncUserDataTrigger"/>
             </list>
         </property>
         <property name="quartzProperties">

@@ -211,8 +211,15 @@ public class SchedulerUtil {
 
             // 不再显示已经删除的任务
             if (checkValid(scheduler, executingJob.getTrigger())) {
-                scheduler.checkExists(executingJob.getTrigger().getKey());
                 ScheduleJob scheduleJob = getScheduleJob(scheduler, executingJob.getTrigger().getKey());
+
+                // 转换阻塞状态为正常运行，因为这个阻塞状态是形容后面在排队的任务
+                if (scheduleJob.getStatus().equals(
+                        StatusConstant.SchedulerStatus.BLOCKED.getDescription())) {
+                    scheduleJob.setStatus(
+                            StatusConstant.SchedulerStatus.NORMAL.getDescription()
+                    );
+                }
                 scheduleJobList.add(scheduleJob);
             }
         }
