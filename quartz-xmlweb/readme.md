@@ -1,10 +1,9 @@
-## Question
+## 1 使用说明
+使用最新的 quartz 2.2.2 和 spring 显示任务的状态。
 
-- List<? extends Trigger> 这个不好判断
+## 2 xmlweb 兼容版使用指南
 
-## xmlweb 兼容版使用指南
-
-1. 升级 quartz
+### 2.1 升级 quartz
 ```
 <!--quartz-->
 <dependency>
@@ -27,7 +26,7 @@
 
 ```
 
-2. 添加 spring mvc 库
+### 2.2 添加 spring mvc 库
 ```
 <!--web-->
 <dependency>
@@ -83,11 +82,11 @@
 </dependency>
 ```
 
-3. 升级任务定义
+### 2.3 升级任务定义
 
 把之前的相关的任务填写到新的 bean 样例就行.
 
-4. 拷贝相关 web 代码
+### 2.4 拷贝相关 web 代码
 把五个文件夹 common、controller、entity、service、task 转移到你的项目中去.
 
 ```
@@ -97,13 +96,13 @@ entity: 每个任务的类定义
 service: 调用工具类操作任务
 task: 任务
 ```
-5. 拷贝 `spring-quartz.xml` 到 `resources` 中
+### 2.5 拷贝 `spring-quartz.xml` 到 `resources` 中
 
-6. 拷贝 `webapp` 到新项目中,与 `resources` 同级
+### 2.6 拷贝 `webapp` 到新项目中,与 `resources` 同级
 
-7. 配置 webapp 文件夹的属性
-打开`Project Structure`,在左侧的 `Project Settings` 选择 `Facets`,添加一个 web属性,如路径的图片
-`quartz-accutron/other/img/web_config.png`
+### 2.7. 配置 webapp 文件夹的属性
+打开`Project Structure`,在左侧的 `Project Settings` 选择 `Facets`,添加一个 web属性,如下图
+![pt_black](https://raw.github.com/yantze/quartz-accutron/other/img/web_config.png)
 
 下面这两个路径一定要设置的:
 ```
@@ -111,4 +110,9 @@ task: 任务
 /Users/yantze/code/web/javaweb/quartz-accutron/quartz-xmlweb/src/main/webapp
 ```
 
-8. 配置 tomcat 属性就可以运行啦.
+### 2.8. 配置 tomcat 属性就可以运行啦.
+
+
+## 3 Question
+
+- List<? extends Trigger> 这个不好判断
