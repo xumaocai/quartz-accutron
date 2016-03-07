@@ -51,6 +51,18 @@
             <artifactId>quartz</artifactId>
             <version>${quartz.version}</version>
         </dependency>
+        <!--quartz jobs package has been separated into its own jar starting 2.2.0 for security purpose.-->
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz-jobs</artifactId>
+            <version>${quartz.version}</version>
+        </dependency>
+        <!-- Transaction dependency is required with Quartz integration -->
+        <dependency>
+            <groupId>javax.transaction</groupId>
+            <artifactId>jta</artifactId>
+            <version>1.1</version>
+        </dependency>
 
         <!--web-->
         <dependency>

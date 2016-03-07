@@ -7,9 +7,12 @@ import com.vastiny.javaweb.quartz.mvcweb.mapper.ScheduleJobMapper;
 import com.vastiny.javaweb.quartz.mvcweb.service.base.BaseService;
 import com.vastiny.javaweb.quartz.mvcweb.service.ScheduleJobService;
 import org.quartz.*;
+import org.quartz.utils.DBConnectionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +34,14 @@ public class ScheduleJobServiceImpl extends BaseService<ScheduleJob> implements 
 //    private final static Logger LOG = LoggerFactory.getLogger(ScheduleJobService.class);
 
     public List<ScheduleJob> getAll() {
+        try {
+            // but since you are using the underlying data pool of quartz make sure that you close the connection so that it should get back to the pool.
+            // http://sishuok.com/forum/blogPost/list/1186.html
+            Connection conn = DBConnectionManager.getInstance().getConnection("myDS");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return super.findAll();
     }
 

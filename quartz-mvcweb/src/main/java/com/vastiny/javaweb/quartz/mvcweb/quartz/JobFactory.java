@@ -24,7 +24,7 @@ public class JobFactory {
 
     protected void runTask(String jobName, JobExecutionContext context) {
 
-        JobFactoryContext jobFactoryBean = (JobFactoryContext) JobFactoryContext.getBean("jobFactoryBean");
+        JobFactoryContext jobFactoryBean = JobFactoryContext.getBean("jobFactoryBean", JobFactoryContext.class);
 
         Class currentTask = jobFactoryBean.getTargetTaskMap().get(jobName);
         String methodName = jobFactoryBean.getTargetMethod();

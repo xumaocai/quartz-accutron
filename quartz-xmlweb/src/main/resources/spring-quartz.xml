@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 使用MethodInvokingJobDetailFactoryBean，任务类可以不实现Job接口，通过targetMethod指定调用方法-->
+    <bean id="dataConversionTask" class="com.vastiny.javaweb.quartz.xmlweb.task.DataConversionTask"/>
+    <bean id="dataConversionDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="name" value="job_work_name"/>
+        <property name="group" value="job_work_group"/>
+        <!--false表示等上一个任务执行完后再开启新的任务-->
+        <property name="concurrent" value="false"/>
+        <property name="targetObject">
+            <ref bean="dataConversionTask"/>
+        </property>
+        <property name="targetMethod">
+            <value>execute</value>
+        </property>
+    </bean>
+    <!--  调度触发器 -->
+    <bean id="dataConversionTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="name" value="work_default_name"/>
+        <property name="group" value="work_default_group"/>
+        <property name="jobDetail">
+            <ref bean="dataConversionDetail" />
+        </property>
+        <property name="cronExpression">
+            <value>0/2 * * * * ?</value>
+        </property>
+        <property name="description" value="这里是在测试这个触发器的备注" />
+    </bean>
+
+
+    <!-- 使用MethodInvokingJobDetailFactoryBean，任务类可以不实现Job接口，通过targetMethod指定调用方法-->
+    <bean id="syncUserDataTask" class="com.vastiny.javaweb.quartz.xmlweb.task.SyncUserDataTask"/>
+    <bean id="syncUserDataDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="name" value="syncUserData"/>
+        <property name="group" value="syncUserDataGroup"/>
+        <!--false表示等上一个任务执行完后再开启新的任务-->
+        <property name="concurrent" value="true"/>
+        <property name="targetObject">
+            <ref bean="syncUserDataTask"/>
+        </property>
+        <property name="targetMethod">
+            <value>execute</value>
+        </property>
+    </bean>
+    <!--  调度触发器 -->
+    <bean id="syncUserDataTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="name" value="syncUserData"/>
+        <property name="group" value="syncUserDataGroup"/>
+        <property name="jobDetail">
+            <ref bean="syncUserDataDetail" />
+        </property>
+        <property name="cronExpression">
+            <value>0/10 * * * * ?</value>
+        </property>
+        <property name="description" value="用户同步数据触发器, 可同时运行这个任务多次" />
+    </bean>
+
+    <!-- 调度工厂 -->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="dataConversionTrigger"/>
+                <ref bean="syncUserDataTrigger"/>
+            </list>
+        </property>
+        <property name="quartzProperties">
+            <map>
+                <!--下一次任务等待超时时长, 默认忍受 60000ms, 60秒,超过后就不执行下一个任务-->
+                <!--The the number of milliseconds the scheduler will 'tolerate' a trigger to pass its next-fire-time by, before being considered "misfired".-->
+                <entry key="org.quartz.jobStore.misfireThreshold" value="60000"/>
+
+                <!--添加日志执行记录-->
+                <entry key="org.quartz.plugin.triggHistory.class" value="org.quartz.plugins.history.LoggingJobHistoryPlugin"/>
+                <!--<entry key="org.quartz.plugin.triggHistory.jobToBeFiredMessage" value="task start now"/>-->
+
+                <!--添加定时任务关闭事件钩子, 定时任务关闭时默认是等所有job完成. 设置这个属性为 false,可杀掉任务, 这个跟 scheduler.shutdown(false) 一样 -->
+                <!--<entry key="org.quartz.plugin.shutdownHook.class" value="org.quartz.plugins.management.ShutdownHookPlugin"/>-->
+                <!--<entry key="org.quartz.plugin.shutdownHook.cleanShutdown" value="false"/>-->
+             </map>
+        </property>
+    </bean>
+
+
+</beans>
