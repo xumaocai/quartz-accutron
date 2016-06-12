@@ -7,11 +7,13 @@ xmlweb Module
 如果是一个复杂的新项目，可以考虑使用 [mvcweb module](https://github.com/yantze/quartz-accutron/tree/master/quartz-mvcweb).
 
 ### 1.1 运行起来
-在命令行里面执行
+在命令行里面进入 quartz-xmlweb 目录，执行:
 ```
 mvn clean
-tomcat7:run-war
+mvn install
+mvn tomcat7:run-war
 ```
+然后访问 http://localhost:8107/, 就可以看到任务调度的页面
 
 ## 2 xmlweb 兼容版升级指南
 > 如果你以前使用的是 quartz1.x, 并且没有使用 web 界面，可以通过下面的步骤，添加升级 quartz 到最新版本，并且可以使用 web 实时查看任务运行状态。
